@@ -5,8 +5,6 @@ import javax.swing.*;
 
 
 public class Board extends JFrame {
-	JButton bDado1, bDado2,bDado3,bDado4,bDado5, bDado6;
-	
 	
 	
 	public static void main(String arg[]){
@@ -32,7 +30,12 @@ public class Board extends JFrame {
 		Box thebox = Box.createHorizontalBox();
 		
 		//Chamar a funcao que ira montar as imagens do dado e etc
-		//bDado1 = makeMeButtons("null");
+		Dice dice = new Dice();
+		JLabel img = new JLabel(dice.generateRandomDice());
+		Container cDice = img;
+		
+		//Adicionando a image ao box
+		thebox.add(cDice);
 		
 		//Adicionando o box do dado para o panel
 		dbPanel.add(thebox);
