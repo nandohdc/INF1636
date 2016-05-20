@@ -10,6 +10,7 @@ import javax.swing.*;
 
 import grafica.MainBoard;
 
+@SuppressWarnings("serial")
 public class MainScreen extends JFrame implements ActionListener{
 	JButton iniciar = new JButton("INICIAR");
 	JButton carregar = new JButton("CARREGAR");
