@@ -1,15 +1,20 @@
 package grafica;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
 import javax.swing.*;
 
 
-public class Board extends JFrame {
-	
+public class Board extends JFrame implements ActionListener{
+	JButton RollDice;
 	
 	public static void main(String arg[]){
 		new Board();
 	}
+	
 	
 	public Board(){
 		//Definindo configuracoes defaults para o JFrame
@@ -27,15 +32,40 @@ public class Board extends JFrame {
 		JPanel dbPanel = new JPanel();
 	
 		//Criando Box para dividir o Frame em partes: Tabuleiro e Dado.
-		Box thebox = Box.createHorizontalBox();
+		Box thebox = Box.createVerticalBox();
 		
-		//Chamar a funcao que ira montar as imagens do dado e etc
+		//Criando objeto do tipo Dice
 		Dice dice = new Dice();
-		JLabel img = new JLabel(dice.generateRandomDice());
-		Container cDice = img;
+		
+		//Criando um Label para adicionar a img e chamando a funcao que cria as imagens do dado
+		JLabel lImageIconDado = new JLabel();
+		
+		//Atribuindo a um container a referencia da img
+		Container cDice = lImageIconDado;
 		
 		//Adicionando a image ao box
 		thebox.add(cDice);
+		
+		//Criando o botao(RollDice)
+		RollDice = new JButton("Roll Dice");
+		
+		//Adicionando ActionListner ao botao RollDice
+		RollDice.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(e.getSource() == RollDice){
+					ImageIcon DadoImageIcon;
+					//Criando um Label para adicionar a img e chamando a funcao que cria as imagens do dado
+					DadoImageIcon = dice.generateRandomDice();
+					
+					lImageIconDado.setIcon(DadoImageIcon);
+					revalidate();
+					
+				}
+			}
+		});
+		
+		//Adicionando o botao ao box
+		thebox.add(RollDice);
 		
 		//Adicionando o box do dado para o panel
 		dbPanel.add(thebox);
@@ -53,6 +83,13 @@ public class Board extends JFrame {
 		
 		//Mostrando a frame
 		this.setVisible(true);
+		
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 	

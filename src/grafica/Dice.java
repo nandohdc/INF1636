@@ -1,14 +1,13 @@
 package grafica;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.geom.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
 import java.util.Random;
 
+@SuppressWarnings("serial")
 public class Dice extends JPanel{
 
 	public Dice(){
@@ -16,6 +15,7 @@ public class Dice extends JPanel{
 	}
 	
 	public ImageIcon generateRandomDice(){
+
 		Random Rand = new Random();
 		BufferedImage img = null;
 		int nRand = 0;
@@ -74,14 +74,17 @@ public class Dice extends JPanel{
 
 		case 6:
 			try {
-				img = ImageIO.read(new File("/Users/fernandohomem/git/INF1636-LudoGame-FHMR/1211971-1213068/src/grafica/Dado5F.png"));
+				img = ImageIO.read(new File("/Users/fernandohomem/git/INF1636-LudoGame-FHMR/1211971-1213068/src/grafica/Dado6F.png"));
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;
 		}
-
+		
+		
+		
 		return new ImageIcon(img);
 	}
 }

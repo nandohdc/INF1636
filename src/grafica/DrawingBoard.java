@@ -7,24 +7,20 @@ import java.awt.geom.*;
 import java.util.*;
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 class DrawingBoard extends JComponent /* implements MouseListener */ {
-	int []xgreen = {240, 240, 300};
-	int []ygreen = {360, 240, 300};
-	int []xyellow = {360, 240, 300};
-	int []yyellow = {360, 360, 300};
-	int []xred = {240, 360, 300};
-	int []yred = {240, 240, 300};
-	int []xblue = {360, 360, 300};
-	int []yblue = {360, 240, 300};
-	
+
 	House[][] CASACARALHO = new House[15][15];
 	House[] cverde = new House[59];
 	House[] cvermelho = new House[59];
 	House[] cazul = new House[59];
 	House[] camarelo = new House[59];
 
+	Pocket pocket = new Pocket();
+	Yard yard = new Yard();
+
 	public void paintBoard(Graphics g) {
-		
+
 		// Class usada para definir os formatos para serem desenhados
 		Graphics2D graphSettings = (Graphics2D) g;
 
@@ -33,42 +29,49 @@ class DrawingBoard extends JComponent /* implements MouseListener */ {
 
 		// Definindo a cor do plano de fundo: Branco
 		setBackground(Color.WHITE);
-		
-		//Vai dividir em quadradinho e pintar os caminhos finais de cada cor.
+
+		//Chama metodo que ira quadricular a Tela.
+		GridLines(graphSettings);
+
+		//Chama o metodo graphPocket da class Pocket para criar os triangulos centrais(casas finais)
+		pocket.graphPocket(graphSettings);
+
+		//Chama o metodo graphYard da Yard para criar os retangulos
+		yard.graphYard(graphSettings);
+
+		//Chamando o metodo Shelter que ira desenhar as casas de abrigo conforme as coordenadas passadas
+		Shelter(graphSettings, 240, 40);
+		Shelter(graphSettings, 40, 320);
+		Shelter(graphSettings, 520, 240);
+		Shelter(graphSettings, 320, 520);
+
+		//Chamando o metodo FinalPath que ira pintar as casas finais conforme cada cor do pino passada como parametro
 		for (int column = 0; column < 15; column++) {
 			for (int line = 0; line < 15; line++) {
-
-				// Verde: Pinta o caminho final de verde.
 				if ((column == 6 && line == 1) || ((column == 7) && (line > 0 && line < 6))) {
-					graphSettings.setPaint(Color.green);
-					graphSettings.fill(new Rectangle2D.Double(40 * line, 40 * column, 40, 40));
-
+					FinalPath(graphSettings, Color.GREEN, 40*line, 40*column);
 				}
 
 				// Vermelho: Pinta o caminho final de vermelho.
 				else if ((line == 8 && column == 1) || ((line == 7) && (column > 0 && column < 6))) {
-					graphSettings.setPaint(Color.red);
-					graphSettings.fill(new Rectangle2D.Double(40 * line, 40 * column, 40, 40));
+					FinalPath(graphSettings, Color.RED, 40*line, 40*column);
 				}
 
 				// Azul: Pinta o caminho final de Azul.
 				else if ((column == 8 && line == 13) || ((column == 7) && (line > 8 && line < 14))) {
-					graphSettings.setPaint(Color.blue);
-					graphSettings.fill(new Rectangle2D.Double(40 * line, 40 * column, 40, 40));
+					FinalPath(graphSettings, Color.BLUE, 40*line, 40*column);
 				}
+
 				// Amarelo: Pinta o caminho final de Amarelo.
 				else if ((line == 6 && column == 13) || ((line == 7) && (column > 8 && column < 14))) {
-					graphSettings.setPaint(Color.yellow);
-					graphSettings.fill(new Rectangle2D.Double(40 * line, 40 * column, 40, 40));
+					FinalPath(graphSettings, Color.YELLOW, 40*line, 40*column);
 				}
-
-				// Ira dividir o tabuleiro em varios quadradadinhos (GridLines)
-				graphSettings.setPaint(Color.black);
-				graphSettings.draw(new Rectangle2D.Double(40 * line, 40 * column, 40, 40));
-
 			}
 		}
-		
+
+/*
+
+
 		for(int i = 0; i < 59; i++){
 			if(i < 5){
 				cverde[i] = camarelo[i+13] = cazul[i+26] = cvermelho[i+39] = CASACARALHO[i+1][6];
@@ -119,70 +122,62 @@ class DrawingBoard extends JComponent /* implements MouseListener */ {
 				cvermelho[i] = CASACARALHO[7][i-52];
 			}
 		}
-		
-		graphSettings.setPaint(Color.green);
-		graphSettings.fill(new Rectangle2D.Double(0, 0, 240, 240));
-		graphSettings.setPaint(Color.yellow);
-		graphSettings.fill(new Rectangle2D.Double(0, 360, 240, 240));
-		graphSettings.setPaint(Color.red);
-		graphSettings.fill(new Rectangle2D.Double(360, 0, 240, 240));
-		graphSettings.setPaint(Color.blue);
-		graphSettings.fill(new Rectangle2D.Double(360, 360, 240, 240));
-		
-		graphSettings.setPaint(Color.black);
-		graphSettings.draw(new Rectangle2D.Double(0, 0, 240, 240));
-		graphSettings.draw(new Rectangle2D.Double(0, 360, 240, 240));
-		graphSettings.draw(new Rectangle2D.Double(360, 0, 240, 240));
-		graphSettings.draw(new Rectangle2D.Double(360, 360, 240, 240));
 
-		graphSettings.fill(new Rectangle2D.Double(240, 40, 40, 40));
-		graphSettings.fill(new Rectangle2D.Double(40, 320, 40, 40));
-		graphSettings.fill(new Rectangle2D.Double(520, 240, 40, 40));
-		graphSettings.fill(new Rectangle2D.Double(320, 520, 40, 40));
 
-		
 
-		graphSettings.setPaint(Color.green);
-		graphSettings.fillPolygon(xgreen, ygreen, 3);
-		graphSettings.setPaint(Color.yellow);
-		graphSettings.fillPolygon(xyellow, yyellow, 3);
-		graphSettings.setPaint(Color.red);
-		graphSettings.fillPolygon(xred, yred, 3);
-		graphSettings.setPaint(Color.blue);
-		graphSettings.fillPolygon(xblue, yblue, 3);
 
-		graphSettings.setPaint(Color.black);
-		graphSettings.drawPolygon(xgreen, ygreen, 3);
-		graphSettings.drawPolygon(xyellow, yyellow, 3);
-		graphSettings.drawPolygon(xred, yred, 3);	
-		graphSettings.drawPolygon(xblue, yblue, 3);
-		
 
-		
-		for(int i = 0; i < 15; i++){
-			for(int j = 0; j < 15; j++){
-				graphSettings.setPaint(Color.white);
-				if(((i == 1) || (i == 4) || (i == 10) || (i == 13)) && ((j == 1) || (j == 4) || (j == 10) || (j == 13))){
-					graphSettings.fill(new Ellipse2D.Double(40*i, 40*j, 40, 40));
-					graphSettings.setPaint(Color.black);
-					graphSettings.draw(new Ellipse2D.Double(40*i, 40*j, 40, 40));
-				}
-					
-			}
-		}
 		for(int i = 1; i < 5; i++){
 			new Pino(0, i, Color.green).desenhaPino(graphSettings, cverde);
 			new Pino(0, i, Color.red).desenhaPino(graphSettings, cvermelho);
 			new Pino(0, i, Color.yellow).desenhaPino(graphSettings, camarelo);
 			new Pino(0, i, Color.blue).desenhaPino(graphSettings, cazul);
+		}*/
+
+		}
+
+		private void GridLines(Graphics2D graphSettings){
+
+			//Vai dividir em quadradinhos
+			for (int column = 0; column < 15; column++) {
+				for (int line = 0; line < 15; line++) {
+
+					// Ira dividir o tabuleiro em varios quadradadinhos (GridLines)
+					graphSettings.setPaint(Color.black);
+					graphSettings.draw(new Rectangle2D.Double(40 * line, 40 * column, 40, 40));
+				}
+			}
+
+		}
+
+		public void Shelter(Graphics2D graphSettings, int x , int y){
+			//Selecionando a cor do pincel como preta
+			graphSettings.setPaint(Color.BLACK);
+
+			//Preenchendo retangulos de coordenadas x e y com cor preta.
+			graphSettings.fill(new Rectangle2D.Double(x, y, 40, 40));
+
+		}
+
+		public void FinalPath(Graphics2D graphSettings, Color color, int xCoordinate, int yCoordinate){
+			//Selecionando a cor do pincel conforme a passada como parametro para o metodo
+			graphSettings.setPaint(color);
+
+			//Preenchendo um dos quadradinho do caminho final com a cor passada como parametro para o metodo
+			graphSettings.fill(new Rectangle2D.Double(xCoordinate, yCoordinate, 40, 40));
+
+			//Redefinindo a cor do pincel como preta
+			graphSettings.setPaint(Color.black);
+
+			//Redefinindo a borda do quadrado do caminho final pintado anteriormente.
+			graphSettings.draw(new Rectangle2D.Double(xCoordinate, yCoordinate, 40, 40));
+
+		}
+
+		@Override
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			paintBoard(g);
 		}
 
 	}
-
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		paintBoard(g);
-	}
-
-}
