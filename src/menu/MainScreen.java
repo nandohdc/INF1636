@@ -86,7 +86,7 @@ public class MainScreen extends JFrame implements ActionListener{
 
 		BufferedImage result = null;
 		try {
-			result = ImageIO.read(new File("/Users/fernandohomem/git/INF1636-LudoGame-FHMR/1211971-1213068/src/LudoGameFinal.jpg"));
+			result = ImageIO.read(new File("/Users/fernandohomem/git/INF1636-LudoGame-FHMR/1211971-1213068/src/menu/LudoGameFinal.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
