@@ -10,6 +10,11 @@ public class Pino {
 	int numero;
 	Color cor;
 	
+	House[] CaminhoColorido = new House[59];
+	CaminhoColorido = CaminhoColorido.getMatrizCaminho();
+	CaminhoColorido.inicializaArrayCaminhoCor(Color.blue,CaminhoColorido = getMatrizCaminho());
+	
+	
 	public Pino(int ca, int num, Color co){
 		this.casa = ca;
 		this.numero = num;

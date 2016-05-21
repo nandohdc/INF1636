@@ -3,22 +3,25 @@ package regras;
 import grafica.Pino;
 
 import java.awt.Color;
-import java.awt.Point;
-import java.util.ArrayList;
+//import java.awt.Point;
+//import java.util.ArrayList;
 
 public class House {
 	//ArrayList<Point> ListaCaminho = new ArrayList<Point>();
-	House[] MatrizCaminhoCor = new House[59];
+	
+	House[][] MatrizCaminho = new House[15][15];
 	
 	private int line; // Coordenada linha da Casa
 	private int column; // Coordenada coluna da Casa
 	private int qtdPinos;//Qtd de Pinos presentes na Casa
 	private Pino p1;//Primeiro Pino que Ocupa a casa -- null == casa vazia
 	private Pino p2;//Segundo Pino que Ocupada a casa -- null == casa vazia
-
+	
+	
 	public House(){// Inicializa as variaveis para evitar atribuicoes com lixo.
 		this.line = 0;
 		this.column = 0;
+		MatrizCaminho = inicializaMatrizCaminho();
 	}
 
 	public House(int x, int y){// Construtor Casa, atribui valores validos a casa - Caminho Possivel
@@ -55,10 +58,13 @@ public class House {
 	public int getcolumn(){// Retorna a coluna em que a casa esta posicionada.
 		return this.column;
 	}
+	
+	public House[][] getMatrizCaminho(){
+		return this.MatrizCaminho;
+	}
 
-
-	private House[][] inicializaMatrizCaminho(){
-		House[][] MatrizCaminho = new House[15][15];
+	public House[][] inicializaMatrizCaminho(){
+		final House[][] MatrizCaminho = new House[15][15];
 		for(int coluna = 0; coluna < 15; coluna++){
 			for(int linha = 0; linha < 15; linha++){
 				MatrizCaminho[linha][coluna] = new House(40*linha, 40*coluna);
@@ -69,9 +75,9 @@ public class House {
 
 	}
 
-	private House[] inicializaArrayCaminhoCor(Color color, House[][] MatrizCaminho){
-		
-		House[] MatrizCaminhoCor = new House[59];
+	public House[] inicializaArrayCaminhoCor(Color color, House[][] MatrizCaminho){
+
+		final House[] MatrizCaminhoCor = new House[59];
 
 		if(color == Color.green){
 			for(int i = 0; i < 59; i++){
@@ -113,13 +119,14 @@ public class House {
 				}
 				else if(i == 52){
 					MatrizCaminhoCor[i] = MatrizCaminhoCor[0];
-					
+
 				}
 				else if(i >= 53 && i < 59){
 					MatrizCaminhoCor[i] = MatrizCaminho[i-52][7];
 				}
 			}
 		}
+
 
 		else if(color == Color.blue){
 
@@ -161,14 +168,13 @@ public class House {
 					MatrizCaminhoCor[i-26] = MatrizCaminho[0][57-i];
 				}
 				else if(i == 52){
-					MatrizCaminhoCor[i] = cazul[0];
+					MatrizCaminhoCor[i] = MatrizCaminhoCor[0];
 				}
 				else if(i >= 53 && i < 59){
 					MatrizCaminhoCor[i] = MatrizCaminho[66-i][7];
 				}
 			}
 		}
-
 
 
 		else if(color == Color.red){
@@ -220,7 +226,7 @@ public class House {
 		}
 
 		else if(color == Color.yellow){
-			
+
 			for(int i = 0; i < 59; i++){
 				if(i < 5){
 					MatrizCaminhoCor[i+13] = MatrizCaminho[i+1][6];
@@ -269,7 +275,7 @@ public class House {
 			}
 
 		}
-		
+
 		return MatrizCaminhoCor;
 	}
 
