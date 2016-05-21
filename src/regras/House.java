@@ -1,8 +1,16 @@
 package regras;
 
 import grafica.Pino;
+import java.awt.Point;
+import java.util.ArrayList;
 
 public class House {
+	ArrayList<Point> ListaCaminho = new ArrayList<Point>();
+	House[] cverde = new House[59];
+	House[] cvermelho = new House[59];
+	House[] cazul = new House[59];
+	House[] camarelo = new House[59];
+	
 	private int line; // Coordenada linha da Casa
 	private int column; // Coordenada coluna da Casa
 	private int qtdPinos;//Qtd de Pinos presentes na Casa
@@ -49,4 +57,12 @@ public class House {
 		return this.column;
 	}
 
+	private ArrayList<Point> inicializaMatrizCaminho(){
+		for(int coluna = 0; coluna < 15; coluna++){
+			for(int linha = 0; linha < 15; linha++){
+				ListaCaminho.add(new Point(40*linha, 40*coluna));
+			}
+		}
+		return ListaCaminho;
+	}
 }

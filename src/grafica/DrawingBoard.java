@@ -8,16 +8,8 @@ import java.awt.*;
 //import java.awt.event.MouseListener;
 import java.awt.geom.*;
 
-
-
 @SuppressWarnings("serial")
 class DrawingBoard extends JComponent /* implements MouseListener */ {
-
-	House[][] CASACARALHO = new House[15][15];
-	House[] cverde = new House[59];
-	House[] cvermelho = new House[59];
-	House[] cazul = new House[59];
-	House[] camarelo = new House[59];
 
 	Pocket pocket = new Pocket();
 	Yard yard = new Yard();
@@ -125,9 +117,9 @@ class DrawingBoard extends JComponent /* implements MouseListener */ {
 				cvermelho[i] = CASACARALHO[7][i-52];
 			}
 		}
+*/
 
-
-
+/*
 
 
 		for(int i = 1; i < 5; i++){
