@@ -1,13 +1,13 @@
 package grafica;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-
+import java.awt.event.*;
 import javax.swing.*;
 
+import regras.*;
 
+
+@SuppressWarnings("serial")
 public class Board extends JFrame implements ActionListener{
 	JButton RollDice;
 	
@@ -54,11 +54,25 @@ public class Board extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e){
 				if(e.getSource() == RollDice){
 					ImageIcon DadoImageIcon;
-					//Criando um Label para adicionar a img e chamando a funcao que cria as imagens do dado
-					DadoImageIcon = dice.generateRandomDice();
+					int nRandDice;
 					
+					//Gerando o numero aleatorio de 1 a 6 
+					nRandDice = dice.generatingRandomNumberDice();
+					
+					//Montando a Imagem com o numero aletatorio gerado passado com parametro
+					DadoImageIcon = dice.MakingImageDice(nRandDice);
+					
+					//Adicionando a imagem ao label
 					lImageIconDado.setIcon(DadoImageIcon);
+					
+					//Revalidando a imagem no local
 					revalidate();
+					
+					//Instanciando o objeto do tipo MoveBitch
+					MoveBitch GetOutDaWay = new MoveBitch();
+					
+					//Chamando o metodo para realizar o movimento
+					
 					
 				}
 			}

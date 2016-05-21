@@ -1,8 +1,7 @@
 package regras;
 
 import grafica.Pino;
-
-import java.awt.Color;
+//import java.awt.Color;
 //import java.awt.Point;
 //import java.util.ArrayList;
 
@@ -21,7 +20,6 @@ public class House {
 	public House(){// Inicializa as variaveis para evitar atribuicoes com lixo.
 		this.line = 0;
 		this.column = 0;
-		MatrizCaminho = inicializaMatrizCaminho();
 	}
 
 	public House(int x, int y){// Construtor Casa, atribui valores validos a casa - Caminho Possivel
@@ -58,13 +56,9 @@ public class House {
 	public int getcolumn(){// Retorna a coluna em que a casa esta posicionada.
 		return this.column;
 	}
-	
-	public House[][] getMatrizCaminho(){
-		return this.MatrizCaminho;
-	}
 
-	public House[][] inicializaMatrizCaminho(){
-		final House[][] MatrizCaminho = new House[15][15];
+/*
+	public House[][] inicializaMatrizCaminho(House[][] MatrizCaminho){
 		for(int coluna = 0; coluna < 15; coluna++){
 			for(int linha = 0; linha < 15; linha++){
 				MatrizCaminho[linha][coluna] = new House(40*linha, 40*coluna);
@@ -281,7 +275,7 @@ public class House {
 
 
 
-	/*
+	
 	private ArrayList<Point> inicializaListaCaminho(){
 		for(int coluna = 0; coluna < 15; coluna++){
 			for(int linha = 0; linha < 15; linha++){

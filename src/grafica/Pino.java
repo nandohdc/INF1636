@@ -2,26 +2,12 @@ package grafica;
 
 import java.awt.*;
 import java.awt.geom.*;
-
 import regras.House;
 
 public class Pino {
-	int casa;
-	int numero;
-	Color cor;
 	
-	House[] CaminhoColorido = new House[59];
-	CaminhoColorido = CaminhoColorido.getMatrizCaminho();
-	CaminhoColorido.inicializaArrayCaminhoCor(Color.blue,CaminhoColorido = getMatrizCaminho());
-	
-	
-	public Pino(int ca, int num, Color co){
-		this.casa = ca;
-		this.numero = num;
-		this.cor = co;
-	}
-		
-	void desenhaPino(Graphics2D g, House[] caminho){
+
+	void desenhaPino(Graphics2D g, House[] CaminhoColorido, int casa, int numero, Color cor){
 
 		Ellipse2D pin = new Ellipse2D.Double();
 		if(casa == 0){
@@ -135,13 +121,13 @@ public class Pino {
 			}
 		}
 		else{
-			g.setPaint(this.cor);
-			pin.setFrame(new Rectangle(caminho[casa-1].getline() + 5, caminho[casa-1].getcolumn() + 5, 30, 30));
+			g.setPaint(cor);
+			pin.setFrame(new Rectangle(CaminhoColorido[casa-1].getline() + 5, CaminhoColorido[casa-1].getcolumn() + 5, 30, 30));
 			g.fill(pin);
 			g.setColor(Color.black);
 			g.draw(pin);
 		}
-			
-
 	}
+
+
 }

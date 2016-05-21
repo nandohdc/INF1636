@@ -3,6 +3,8 @@ package grafica;
 import javax.swing.*;
 
 import regras.House;
+import regras.Path;
+import regras.PinoEstruturado;
 
 import java.awt.*;
 //import java.awt.event.MouseListener;
@@ -14,8 +16,14 @@ class DrawingBoard extends JComponent /* implements MouseListener */ {
 	Pocket pocket = new Pocket();
 	Yard yard = new Yard();
 
-	public void paintBoard(Graphics g) {
+	Pino[] GreenPino = new Pino[4];
+	Pino[] RedPino = new Pino[4];
+	Pino[] BluePino = new Pino[4];
+	Pino[] YellowPino = new Pino[4];
 
+	public void paintBoard(Graphics g) {
+		Path caminhao = new Path();
+		ConjuntoDePinos
 		// Class usada para definir os formatos para serem desenhados
 		Graphics2D graphSettings = (Graphics2D) g;
 
@@ -64,60 +72,70 @@ class DrawingBoard extends JComponent /* implements MouseListener */ {
 			}
 		}
 
-/*
-
-
+		//Criando os 16 pinos conforme as divisoes de cores
 		for(int i = 1; i < 5; i++){
-			new Pino(0, i, Color.green).desenhaPino(graphSettings, cverde);
-			new Pino(0, i, Color.red).desenhaPino(graphSettings, cvermelho);
-			new Pino(0, i, Color.yellow).desenhaPino(graphSettings, camarelo);
-			new Pino(0, i, Color.blue).desenhaPino(graphSettings, cazul);
-		}*/
+			GreenPino[i-1] = new Pino(0, i, Color.green);
+			GreenPino[i-1].desenhaPino(graphSettings, caminhao.getGreen());
+			RedPino[i-1] = new Pino(0, i, Color.red);
+			RedPino[i-1].desenhaPino(graphSettings, caminhao.getRed());
+			BluePino[i-1] = new Pino(0, i, Color.blue);
+			BluePino[i-1].desenhaPino(graphSettings, caminhao.getBlue());
+			YellowPino[i-1] = new Pino(0, i, Color.yellow);
+			YellowPino[i-1].desenhaPino(graphSettings, caminhao.getYellow());
 
-		}
-
-		private void GridLines(Graphics2D graphSettings){
-
-			//Vai dividir em quadradinhos
-			for (int column = 0; column < 15; column++) {
-				for (int line = 0; line < 15; line++) {
-
-					// Ira dividir o tabuleiro em varios quadradadinhos (GridLines)
-					graphSettings.setPaint(Color.black);
-					graphSettings.draw(new Rectangle2D.Double(40 * line, 40 * column, 40, 40));
-				}
-			}
-
-		}
-
-		public void Shelter(Graphics2D graphSettings, int x , int y){
-			//Selecionando a cor do pincel como preta
-			graphSettings.setPaint(Color.BLACK);
-
-			//Preenchendo retangulos de coordenadas x e y com cor preta.
-			graphSettings.fill(new Rectangle2D.Double(x, y, 40, 40));
-
-		}
-
-		public void FinalPath(Graphics2D graphSettings, Color color, int xCoordinate, int yCoordinate){
-			//Selecionando a cor do pincel conforme a passada como parametro para o metodo
-			graphSettings.setPaint(color);
-
-			//Preenchendo um dos quadradinho do caminho final com a cor passada como parametro para o metodo
-			graphSettings.fill(new Rectangle2D.Double(xCoordinate, yCoordinate, 40, 40));
-
-			//Redefinindo a cor do pincel como preta
-			graphSettings.setPaint(Color.black);
-
-			//Redefinindo a borda do quadrado do caminho final pintado anteriormente.
-			graphSettings.draw(new Rectangle2D.Double(xCoordinate, yCoordinate, 40, 40));
-
-		}
-
-		@Override
-		public void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			paintBoard(g);
 		}
 
 	}
+
+	private void GridLines(Graphics2D graphSettings){
+
+		//Vai dividir em quadradinhos
+		for (int column = 0; column < 15; column++) {
+			for (int line = 0; line < 15; line++) {
+
+				// Ira dividir o tabuleiro em varios quadradadinhos (GridLines)
+				graphSettings.setPaint(Color.black);
+				graphSettings.draw(new Rectangle2D.Double(40 * line, 40 * column, 40, 40));
+			}
+		}
+
+	}
+
+	public void Shelter(Graphics2D graphSettings, int x , int y){
+		//Selecionando a cor do pincel como preta
+		graphSettings.setPaint(Color.BLACK);
+
+		//Preenchendo retangulos de coordenadas x e y com cor preta.
+		graphSettings.fill(new Rectangle2D.Double(x, y, 40, 40));
+
+	}
+
+	public void FinalPath(Graphics2D graphSettings, Color color, int xCoordinate, int yCoordinate){
+		//Selecionando a cor do pincel conforme a passada como parametro para o metodo
+		graphSettings.setPaint(color);
+
+		//Preenchendo um dos quadradinho do caminho final com a cor passada como parametro para o metodo
+		graphSettings.fill(new Rectangle2D.Double(xCoordinate, yCoordinate, 40, 40));
+
+		//Redefinindo a cor do pincel como preta
+		graphSettings.setPaint(Color.black);
+
+		//Redefinindo a borda do quadrado do caminho final pintado anteriormente.
+		graphSettings.draw(new Rectangle2D.Double(xCoordinate, yCoordinate, 40, 40));
+
+	}
+	
+	public void paintPino(Graphics g, House[] Caminho, PinoEstruturado pest){
+		Pino p = new Pino();
+		Graphics2D pino = (Graphics2D) g;
+		p.desenhaPino(pino, Caminho, pest.getCasa(), pest.getNumero(), pest.getColor());
+	}
+
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		paintBoard(g);
+	}
+
+}

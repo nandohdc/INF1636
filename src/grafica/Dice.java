@@ -10,21 +10,24 @@ import java.util.Random;
 @SuppressWarnings("serial")
 public class Dice extends JPanel{
 
-	public Dice(){
-		
+	int nRand = 0;
+
+	public Dice(){	
 	}
-	
-	public ImageIcon generateRandomDice(){
+
+	public int generatingRandomNumberDice(){
 
 		Random Rand = new Random();
-		BufferedImage img = null;
 		int nRand = 0;
-		int fDice[] = new int[5];
+		nRand = Rand.nextInt(6)+1;
 
-		for(int i = 0; i < 5; i++){
-			nRand = Rand.nextInt(6)+1;
-			fDice[i] = nRand;
-		}
+		return nRand;
+	}
+
+
+	public ImageIcon MakingImageDice(int nRand){
+
+		BufferedImage img = null;
 
 		switch(nRand){
 		case 1:
@@ -75,16 +78,16 @@ public class Dice extends JPanel{
 		case 6:
 			try {
 				img = ImageIO.read(new File("/Users/fernandohomem/git/INF1636-LudoGame-FHMR/1211971-1213068/src/grafica/Dado6F.png"));
-				
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;
 		}
-		
-		
-		
+
+
+
 		return new ImageIcon(img);
 	}
 }
