@@ -67,56 +67,7 @@ class DrawingBoard extends JComponent /* implements MouseListener */ {
 /*
 
 
-		for(int i = 0; i < 59; i++){
-			if(i < 5){
-				cverde[i] = camarelo[i+13] = cazul[i+26] = cvermelho[i+39] = CASACARALHO[i+1][6];
-			}
-			else if(i >= 5 && i < 11){
-				cverde[i] = camarelo[i+13] = cazul[i+26] = cvermelho[i+39] = CASACARALHO[6][10-i];
-			}
-			else if(i >= 11 && i < 13){
-				cverde[i] = camarelo[i+13] = cazul[i+26] = cvermelho[i+39] = CASACARALHO[i-4][0];
-			}
-			else if(i >= 13 && i < 18){
-				cverde[i] = camarelo[i+13] = cazul[i+26] = cvermelho[i-13] = CASACARALHO[8][i-12];
-			}
-			else if(i >= 18 && i < 24){
-				cverde[i] = camarelo[i+13] = cazul[i+26] = cvermelho[i-13] = CASACARALHO[i-9][6];
-			}
-			else if(i >= 24 && i < 26){
-				cverde[i] = camarelo[i+13] = cazul[i+26] = cvermelho[i-13] = CASACARALHO[14][i-17];
-			}
-			else if(i >= 26 && i < 31){
-				cverde[i] = camarelo[i+13] = cazul[i-26] = cvermelho[i-13] = CASACARALHO[39-i][8];
-			}
-			else if(i >= 31 && i < 37){
-				cverde[i] = camarelo[i+13] = cazul[i-26] = cvermelho[i-13] = CASACARALHO[8][i-22];
-			}
-			else if(i >= 37 && i < 39){
-				cverde[i] = camarelo[i+13] = cazul[i-26] = cvermelho[i-13] = CASACARALHO[44-i][14];
-			}
-			else if(i >= 39 && i < 44){
-				cverde[i] = camarelo[i-39] = cazul[i-26] = cvermelho[i-13] = CASACARALHO[6][52-i];
-			}
-			else if(i >= 44 && i < 50){
-				cverde[i] = camarelo[i-39] = cazul[i-26] = cvermelho[i-13] = CASACARALHO[49-i][8];
-			}
-			else if(i >= 50 && i < 52){
-				cverde[i] = camarelo[i-39] = cazul[i-26] = cvermelho[i-13] = CASACARALHO[0][57-i];
-			}
-			else if(i == 52){
-				cverde[i] = cverde[0];
-				camarelo[i] = camarelo[0];
-				cazul[i] = cazul[0];
-				cvermelho[i] = cvermelho[0];
-			}
-			else if(i >= 53 && i < 59){
-				cverde[i] = CASACARALHO[i-52][7];
-				camarelo[i] = CASACARALHO[7][66-i];
-				cazul[i] = CASACARALHO[66-i][7];
-				cvermelho[i] = CASACARALHO[7][i-52];
-			}
-		}
+		
 */
 
 /*
