@@ -67,12 +67,6 @@ class DrawingBoard extends JComponent /* implements MouseListener */ {
 /*
 
 
-		
-*/
-
-/*
-
-
 		for(int i = 1; i < 5; i++){
 			new Pino(0, i, Color.green).desenhaPino(graphSettings, cverde);
 			new Pino(0, i, Color.red).desenhaPino(graphSettings, cvermelho);
