@@ -2,10 +2,10 @@ package grafica;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseListener;
+//import java.awt.event.MouseListener;
 import java.awt.geom.*;
-import java.util.*;
-import java.util.ArrayList;
+
+
 
 @SuppressWarnings("serial")
 class DrawingBoard extends JComponent /* implements MouseListener */ {
