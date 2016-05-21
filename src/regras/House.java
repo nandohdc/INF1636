@@ -1,4 +1,6 @@
-package grafica;
+package regras;
+
+import grafica.Pino;
 
 public class House {
 	private int line; // Coordenada linha da Casa

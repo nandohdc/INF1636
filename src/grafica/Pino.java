@@ -3,6 +3,8 @@ package grafica;
 import java.awt.*;
 import java.awt.geom.*;
 
+import regras.House;
+
 public class Pino {
 	int casa;
 	int numero;

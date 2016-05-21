@@ -1,6 +1,9 @@
 package grafica;
 
 import javax.swing.*;
+
+import regras.House;
+
 import java.awt.*;
 //import java.awt.event.MouseListener;
 import java.awt.geom.*;
