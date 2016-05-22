@@ -3,13 +3,11 @@ package grafica;
 import javax.swing.*;
 import regras.ConjuntoDePinos;
 import regras.House;
-import regras.MoveBitch;
 import regras.Path;
-import regras.PinoEstruturado;
+
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.awt.geom.*;
 
 @SuppressWarnings("serial")
@@ -25,61 +23,6 @@ class DrawingBoard extends JPanel{
 	
 	public DrawingBoard(){
 		this.setSize(768,640);
-	
-		//Criando Box para dividir o Frame em partes: Tabuleiro e Dado.
-		Box thebox = Box.createVerticalBox();
-		
-		//Criando objeto do tipo Dice
-		Dice dice = new Dice();
-		
-		//Criando um Label para adicionar a img e chamando a funcao que cria as imagens do dado
-		JLabel lImageIconDado = new JLabel();
-		
-		//Atribuindo a um container a referencia da img
-		Container cDice = lImageIconDado;
-		
-		//Adicionando a image ao box
-		thebox.add(cDice);
-		
-		//Criando o botao(RollDice)
-		JButton RollDice = new JButton("Roll Dice");
-		
-		//Adicionando ActionListner ao botao RollDice
-		RollDice.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				if(e.getSource() == RollDice){
-					ImageIcon DadoImageIcon;
-					int nRandDice;
-					
-					//Gerando o numero aleatorio de 1 a 6 
-					dice.generatingRandomNumberDice();
-					nRandDice = dice.getRandNum();
-					
-					//Montando a Imagem com o numero aletatorio gerado passado com parametro
-					DadoImageIcon = dice.MakingImageDice(nRandDice);
-					
-					//Adicionando a imagem ao label
-					lImageIconDado.setIcon(DadoImageIcon);
-					
-					//Revalidando a imagem no local
-					revalidate();
-					
-					//Instanciando o objeto do tipo MoveBitch
-					ConjuntoDePinos cPinos = new ConjuntoDePinos();
-					Path pPath = new Path();
-					MoveBitch GetOutDaWay = new MoveBitch(cPinos.getBlue(1), pPath.getBlue(), nRandDice );
-					GetOutDaWay.JustDoIt();
-					paintPino(GetOutDaWay.JustDoIt().getCasa(), GetOutDaWay.JustDoIt().getColor(), GetOutDaWay.JustDoIt().getNumero(),pPath.getBlue());
-					
-				}
-			}
-		});
-		
-		//Adicionando o botao ao box
-		add(thebox.add(RollDice));
-		
-		//Adicionando o box do dado para o panel
-		this.add(thebox, BorderLayout.EAST);
 		
 	}
 	
