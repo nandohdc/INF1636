@@ -1,7 +1,5 @@
 package regras;
 
-import grafica.Pino;
-
 public class House {
 	
 	House[][] MatrizCaminho = new House[15][15];
@@ -9,8 +7,8 @@ public class House {
 	private int line; // Coordenada linha da Casa
 	private int column; // Coordenada coluna da Casa
 	private int qtdPinos;//Qtd de Pinos presentes na Casa
-	private Pino p1;//Primeiro Pino que Ocupa a casa -- null == casa vazia
-	private Pino p2;//Segundo Pino que Ocupada a casa -- null == casa vazia
+	private PinoEstruturado p1;//Primeiro Pino que Ocupa a casa -- null == casa vazia
+	private PinoEstruturado p2;//Segundo Pino que Ocupada a casa -- null == casa vazia
 	
 	
 	public House(){// Inicializa as variaveis para evitar atribuicoes com lixo.
@@ -23,7 +21,7 @@ public class House {
 		this.column = y;
 	}
 
-	public void setPino(Pino p){// Atribui um novo pino a casa, antes checando quando posicao eh valida.
+	public void setPino(PinoEstruturado p){// Atribui um novo pino a casa, antes checando quando posicao eh valida.
 
 		if(this.qtdPinos == 0){
 			this.p1 = p;
@@ -33,11 +31,11 @@ public class House {
 		}
 	}
 
-	public Pino getPino1(){ // Retorna o pino: pode ser null ou valido, depdende de qtdPinos
+	public PinoEstruturado getPino1(){ // Retorna o pino: pode ser null ou valido, depdende de qtdPinos
 		return p1;
 	}
 
-	public Pino getPino2(){ // Retorna o pino: pode ser null ou valido, depdende de qtdPinos
+	public PinoEstruturado getPino2(){ // Retorna o pino: pode ser null ou valido, depdende de qtdPinos
 		return p2;
 	}
 

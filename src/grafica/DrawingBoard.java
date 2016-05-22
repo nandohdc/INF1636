@@ -12,7 +12,7 @@ import java.awt.geom.*;
 
 @SuppressWarnings("serial")
 class DrawingBoard extends JPanel{
-	private Graphics2D graphSettings;
+	Graphics2D graphSettings;
 	Pocket pocket = new Pocket();
 	Yard yard = new Yard();
 	
@@ -253,6 +253,7 @@ class DrawingBoard extends JPanel{
 			graphSettings.setColor(Color.black);
 			graphSettings.draw(pin);
 		}
+		
 	}
 	
 	public void RePaintPino(int CasaCorPino, Color cor, int numeroPino, House[] CaminhoColoridoPino){
