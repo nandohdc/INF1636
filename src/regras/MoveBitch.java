@@ -4,7 +4,7 @@ import grafica.Pino;
 
 public class MoveBitch {
 	
-	Pino mPino;
+	PinoEstruturado mPino;
 	House[] mCaminho = new House[59];
 	int mDado;
 	
@@ -14,13 +14,13 @@ public class MoveBitch {
 		this.mDado = 0;
 	}
 	
-	public MoveBitch(Pino Pino, House[] Caminho, int Dado){
+	public MoveBitch(PinoEstruturado Pino, House[] Caminho, int Dado){
 		this.mPino = Pino;
 		this.mCaminho = Caminho;
 		this.mDado = Dado;
 	}
 	
-	public Pino JustDoIt(){
+	public PinoEstruturado JustDoIt(){
 		int setCasa;
 		
 		setCasa = this.mPino.getCasa() + this.mDado;

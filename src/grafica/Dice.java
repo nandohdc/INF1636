@@ -9,19 +9,27 @@ import java.util.Random;
 
 @SuppressWarnings("serial")
 public class Dice extends JPanel{
-
 	int nRand = 0;
-
-	public Dice(){	
+	
+	private static Dice dfirstInstance = null;
+	
+	public static Dice getInstancce(){
+		if(dfirstInstance == null){
+			
+			dfirstInstance = new Dice();
+		}
+		
+		return dfirstInstance;
+	}
+	
+	public Dice(){
+		this.nRand = 0;
 	}
 
-	public int generatingRandomNumberDice(){
+	public void generatingRandomNumberDice(){
 
 		Random Rand = new Random();
-		int nRand = 0;
-		nRand = Rand.nextInt(6)+1;
-
-		return nRand;
+		this.nRand = Rand.nextInt(6)+1;
 	}
 
 
@@ -89,5 +97,9 @@ public class Dice extends JPanel{
 
 
 		return new ImageIcon(img);
+	}
+	
+	public int getRandNum(){
+		return this.nRand;
 	}
 }

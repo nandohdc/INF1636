@@ -7,7 +7,12 @@ public class PinoEstruturado {
 	int numero;
 	Color cor;
 	
-
+	public PinoEstruturado(){
+		this.casa = 0;
+		this.numero = 0;
+		this.cor = null;
+	}
+	
 	public PinoEstruturado(int ca, int num, Color co){
 		this.casa = ca;
 		this.numero = num;
