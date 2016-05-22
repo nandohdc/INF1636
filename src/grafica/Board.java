@@ -10,6 +10,7 @@ import regras.*;
 public class Board extends JFrame implements ActionListener{
 	
 	Board(){
+		DrawingBoard GUI = new DrawingBoard();
 		
 		//Definindo configuracoes defaults para o JFrame
 		this.setSize(768,640);
@@ -57,16 +58,18 @@ public class Board extends JFrame implements ActionListener{
 					//Adicionando a imagem ao label
 					lImageIconDado.setIcon(DadoImageIcon);
 					
-					//Revalidando a imagem no local
-					revalidate();
-					
 					//Instanciando o objeto do tipo MoveBitch
 					ConjuntoDePinos cPinos = new ConjuntoDePinos();
 					Path pPath = new Path();
 					MoveBitch GetOutDaWay = new MoveBitch(cPinos.getBlue(1), pPath.getBlue(), nRandDice );
 					GetOutDaWay.JustDoIt();
-					getContentPane().revalidate();
-					getContentPane().repaint();
+					
+					GUI.RePaintPino(GetOutDaWay.JustDoIt().getCasa(), GetOutDaWay.JustDoIt().getColor(),GetOutDaWay.JustDoIt().getNumero(), pPath.getBlue());
+					
+					
+					GUI.revalidate();
+					GUI.repaint();
+					repaint();
 					
 				}
 			}
@@ -79,7 +82,7 @@ public class Board extends JFrame implements ActionListener{
 		this.add(thebox, BorderLayout.EAST);
 		
 		//Fazendo com que a area desenhada tome conta da parte central do frame
-		this.add(new DrawingBoard(),BorderLayout.CENTER);
+		this.add(GUI ,BorderLayout.CENTER);
 		
 		//Setting a posicao de centralizacao
 		this.setLocation(xPos,yPos);

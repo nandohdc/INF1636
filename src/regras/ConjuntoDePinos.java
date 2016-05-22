@@ -3,10 +3,10 @@ package regras;
 import java.awt.Color;
 
 public class ConjuntoDePinos {
-	private PinoEstruturado[] GreenPino = new PinoEstruturado[4];
-	private PinoEstruturado[] RedPino = new PinoEstruturado[4];
-	private PinoEstruturado[] BluePino = new PinoEstruturado[4];
-	private PinoEstruturado[] YellowPino = new PinoEstruturado[4];
+	PinoEstruturado[] GreenPino = new PinoEstruturado[4];
+	PinoEstruturado[] RedPino = new PinoEstruturado[4];
+	PinoEstruturado[] BluePino = new PinoEstruturado[4];
+	PinoEstruturado[] YellowPino = new PinoEstruturado[4];
 	
 	private static ConjuntoDePinos cpfirstInstance = null;
 	

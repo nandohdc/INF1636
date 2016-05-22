@@ -254,4 +254,9 @@ class DrawingBoard extends JPanel{
 			graphSettings.draw(pin);
 		}
 	}
+	
+	public void RePaintPino(int CasaCorPino, Color cor, int numeroPino, House[] CaminhoColoridoPino){
+		paintPino(CasaCorPino, cor, numeroPino, CaminhoColoridoPino);
+		repaint();
+	}
 }
