@@ -42,6 +42,7 @@ class DrawingBoard extends JPanel{
 		graphSettings = (Graphics2D) g;
 		
 		paintBoard();
+		paintPino(cPinos.getRed(1).getCasa(), cPinos.getRed(1).getColor(),cPinos.getRed(1).getNumero(), pPath.getRed());
 		paintPino(cPinos.getBlue(1).getCasa(), cPinos.getBlue(1).getColor(),cPinos.getBlue(1).getNumero(), pPath.getBlue());
 	}
 
