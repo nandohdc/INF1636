@@ -65,6 +65,7 @@ public class Board extends JFrame implements ActionListener{
 					Path pPath = new Path();
 					MoveBitch GetOutDaWay = new MoveBitch(cPinos.getBlue(1), pPath.getBlue(), nRandDice );
 					GetOutDaWay.JustDoIt();
+					getContentPane().revalidate();
 					getContentPane().repaint();
 					
 				}

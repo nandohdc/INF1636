@@ -1,7 +1,5 @@
 package regras;
 
-import grafica.Pino;
-
 public class MoveBitch {
 	
 	PinoEstruturado mPino;
