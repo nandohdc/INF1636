@@ -1,13 +1,7 @@
 package grafica;
 
 import javax.swing.*;
-
-import regras.House;
-import regras.Path;
-import regras.PinoEstruturado;
-
 import java.awt.*;
-//import java.awt.event.MouseListener;
 import java.awt.geom.*;
 
 @SuppressWarnings("serial")
@@ -16,14 +10,8 @@ class DrawingBoard extends JComponent /* implements MouseListener */ {
 	Pocket pocket = new Pocket();
 	Yard yard = new Yard();
 
-	Pino[] GreenPino = new Pino[4];
-	Pino[] RedPino = new Pino[4];
-	Pino[] BluePino = new Pino[4];
-	Pino[] YellowPino = new Pino[4];
-
 	public void paintBoard(Graphics g) {
-		Path caminhao = new Path();
-		ConjuntoDePinos
+
 		// Class usada para definir os formatos para serem desenhados
 		Graphics2D graphSettings = (Graphics2D) g;
 
@@ -72,19 +60,6 @@ class DrawingBoard extends JComponent /* implements MouseListener */ {
 			}
 		}
 
-		//Criando os 16 pinos conforme as divisoes de cores
-		for(int i = 1; i < 5; i++){
-			GreenPino[i-1] = new Pino(0, i, Color.green);
-			GreenPino[i-1].desenhaPino(graphSettings, caminhao.getGreen());
-			RedPino[i-1] = new Pino(0, i, Color.red);
-			RedPino[i-1].desenhaPino(graphSettings, caminhao.getRed());
-			BluePino[i-1] = new Pino(0, i, Color.blue);
-			BluePino[i-1].desenhaPino(graphSettings, caminhao.getBlue());
-			YellowPino[i-1] = new Pino(0, i, Color.yellow);
-			YellowPino[i-1].desenhaPino(graphSettings, caminhao.getYellow());
-
-		}
-
 	}
 
 	private void GridLines(Graphics2D graphSettings){
@@ -124,18 +99,12 @@ class DrawingBoard extends JComponent /* implements MouseListener */ {
 		graphSettings.draw(new Rectangle2D.Double(xCoordinate, yCoordinate, 40, 40));
 
 	}
-	
-	public void paintPino(Graphics g, House[] Caminho, PinoEstruturado pest){
-		Pino p = new Pino();
-		Graphics2D pino = (Graphics2D) g;
-		p.desenhaPino(pino, Caminho, pest.getCasa(), pest.getNumero(), pest.getColor());
-	}
-
 
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		paintBoard(g);
+		paintPino();
 	}
 
 }

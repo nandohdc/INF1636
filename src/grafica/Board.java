@@ -3,7 +3,7 @@ package grafica;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
+import java.awt.geom.*;
 import regras.*;
 
 
@@ -89,6 +89,18 @@ public class Board extends JFrame implements ActionListener{
 		
 		//Fazendo com que a area desenhada tome conta da parte central do frame
 		this.add(new DrawingBoard(),BorderLayout.CENTER);
+		
+		//Instanciando o cojuntodepinos estruturado
+		House[] CaminhoColoridoGreen = new House[59];
+		CaminhoColoridoGreen = new Path().getGreen();
+		ConjuntoDePinos cPinos = new ConjuntoDePinos();
+		PinoEstruturado ePino = new PinoEstruturado(cPinos.getGreen(1).getCasa(), cPinos.getGreen(1).getNumero(), cPinos.getGreen(1).getColor());
+		
+		//Instanciar o grafico pino
+
+		
+		
+		
 		
 		//Setting a posicao de centralizacao
 		this.setLocation(xPos,yPos);
