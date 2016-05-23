@@ -7,7 +7,7 @@ public class ConjuntoDePinos {
 	PinoEstruturado[] RedPino = new PinoEstruturado[4];
 	PinoEstruturado[] BluePino = new PinoEstruturado[4];
 	PinoEstruturado[] YellowPino = new PinoEstruturado[4];
-	
+
 	private static ConjuntoDePinos cpfirstInstance = null;
 	
 	public static ConjuntoDePinos getInstancce(){
