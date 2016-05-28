@@ -15,48 +15,43 @@ class DrawingBoard extends JPanel{
 	Graphics2D graphSettings;
 	Pocket pocket = new Pocket();
 	Yard yard = new Yard();
-	
-	//private ConjuntoDePinos cPinos = new ConjuntoDePinos();
 	private Path pPath = new Path();
-	
+
 	private static DrawingBoard bdfirstInstance = null;
-	
+
 	public DrawingBoard(){
 		this.setSize(768,640);
-		
+
 	}
-	
-	
+
+
 	public static DrawingBoard getInstancce(){
 		if(bdfirstInstance == null){
-			
+
 			bdfirstInstance = new DrawingBoard();
 		}
-		
+
 		return bdfirstInstance;
 	}
-	
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		graphSettings = (Graphics2D) g;
-		
+
 		paintBoard();
-		paintPino(ConjuntoDePinos.RedPino[0].getCasa(), ConjuntoDePinos.RedPino[0].getColor(),ConjuntoDePinos.RedPino[0].getNumero(), pPath.getRed());
-		paintPino(ConjuntoDePinos.BluePino[0].getCasa(), ConjuntoDePinos.BluePino[0].getColor(),ConjuntoDePinos.BluePino[0].getNumero(), pPath.getBlue());
-		/*
-		ConjuntoDePinos.BluePino[0].setCasa(ConjuntoDePinos.BluePino[0].getCasa() + 1);
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+		for (int i = 0; i < 4; i++){
+			paintPino(ConjuntoDePinos.RedPino[i].getCasa(), ConjuntoDePinos.RedPino[i].getColor(),ConjuntoDePinos.RedPino[i].getNumero(), pPath.getRed());
+			paintPino(ConjuntoDePinos.BluePino[i].getCasa(), ConjuntoDePinos.BluePino[i].getColor(),ConjuntoDePinos.BluePino[i].getNumero(), pPath.getBlue());
+			paintPino(ConjuntoDePinos.YellowPino[i].getCasa(), ConjuntoDePinos.YellowPino[i].getColor(),ConjuntoDePinos.YellowPino[i].getNumero(), pPath.getYellow());
+			paintPino(ConjuntoDePinos.GreenPino[i].getCasa(), ConjuntoDePinos.GreenPino[i].getColor(),ConjuntoDePinos.GreenPino[i].getNumero(), pPath.getGreen());
 		}
-		*/
+
 		repaint();
 	}
 
-	
+
 	public void paintBoard() {
 
 		// Para limpar os borroes das lines e definar regras de renderizacao
@@ -143,7 +138,7 @@ class DrawingBoard extends JPanel{
 		graphSettings.draw(new Rectangle2D.Double(xCoordinate, yCoordinate, 40, 40));
 
 	}
-	
+
 	public void paintPino(int CasaCorPino, Color cor, int numeroPino, House[] CaminhoColoridoPino){
 		Ellipse2D pin = new Ellipse2D.Double();
 		if(CasaCorPino == 0 ){
@@ -263,11 +258,6 @@ class DrawingBoard extends JPanel{
 			graphSettings.setColor(Color.black);
 			graphSettings.draw(pin);
 		}
-		
-	}
-	
-	public void RePaintPino(int CasaCorPino, Color cor, int numeroPino, House[] CaminhoColoridoPino){
-		paintPino(CasaCorPino, cor, numeroPino, CaminhoColoridoPino);
-		repaint();
+
 	}
 }

@@ -21,6 +21,10 @@ public class MoveBitch {
 	public PinoEstruturado JustDoIt(){
 		int setCasa;
 		
+		if((mPino.getCasa()+this.mDado) > 59){
+			return this.mPino;
+		}
+
 		setCasa = this.mPino.getCasa() + this.mDado;
 		this.mPino.setCasa(setCasa);
 		
