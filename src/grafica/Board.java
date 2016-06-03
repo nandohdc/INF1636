@@ -11,13 +11,15 @@ public class Board extends JFrame implements ActionListener{
 	int Round = 0;
 	int cX;
 	int cY;
+	public boolean checkPino = false;
 	JButton RollDice;
 	MoveBitch GetOutDaWay;
+	Path pPath;
 	DrawingBoard GUI;
 
 	Board(){
 		GUI = new DrawingBoard();
-		Path pPath = new Path();
+		pPath = new Path();
 		new ConjuntoDePinos();
 		HandlerClass handler = new HandlerClass();
 
@@ -74,44 +76,78 @@ public class Board extends JFrame implements ActionListener{
 
 					GUI.addMouseListener(handler);
 
-
+					System.out.printf("Round: %d\n", Round);
 					switch (Round){
 
 					case 0: //Inicio de Jogo
+						
+						
+
+						if( checkPino == true ){
+
+							GetOutDaWay = new MoveBitch(ConjuntoDePinos.RedPino[0], pPath.getRed(), nRandDice);
+							GetOutDaWay.JustDoIt();//Realizando a Jogada
+						}
+						/*
 						for (int i = 0; i < 60; i++){
+
 							if(pPath.getRed()[i].getline() == cX && pPath.getRed()[i].getcolumn() == cY){
 								GetOutDaWay = new MoveBitch(ConjuntoDePinos.RedPino[0], pPath.getRed(), nRandDice);
 							}
-						}
+						}*/
 						break;
 
 					case 1:
-						for (int i = 0; i < 60; i++){
+
+						if( checkPino == true ){
+
+							GetOutDaWay = new MoveBitch(ConjuntoDePinos.RedPino[0], pPath.getRed(), nRandDice);
+							GetOutDaWay.JustDoIt();//Realizando a Jogada
+						}
+
+						/*for (int i = 0; i < 60; i++){
+
 							if(pPath.getGreen()[i].getline() == cX && pPath.getGreen()[i].getcolumn() == cY){
 								GetOutDaWay = new MoveBitch(ConjuntoDePinos.GreenPino[0], pPath.getGreen(), nRandDice);
 							}
-						}
+						}*/
 						break;
 
 					case 2:
-						for (int i = 0; i < 60; i++){
-							if(pPath.getYellow()[i].getline() == cX && pPath.getYellow()[i].getcolumn() == cY){
-								GetOutDaWay = new MoveBitch(ConjuntoDePinos.YellowPino[0], pPath.getYellow(), nRandDice);
-							}
+
+						if( checkPino == true ){
+
+							GetOutDaWay = new MoveBitch(ConjuntoDePinos.RedPino[0], pPath.getRed(), nRandDice);
+							GetOutDaWay.JustDoIt();//Realizando a Jogada
 						}
+
+						/*
+							for (int i = 0; i < 60; i++){
+								if(pPath.getYellow()[i].getline() == cX && pPath.getYellow()[i].getcolumn() == cY){
+									GetOutDaWay = new MoveBitch(ConjuntoDePinos.YellowPino[0], pPath.getYellow(), nRandDice);
+								}
+							}*/
 						break;
 
 					case 3:
-						for (int i = 0; i < 60; i++){
-							if(pPath.getBlue()[i].getline() == cX && pPath.getBlue()[i].getcolumn() == cY){
-								GetOutDaWay = new MoveBitch(ConjuntoDePinos.BluePino[0], pPath.getBlue(), nRandDice);
-							}
+
+						if( checkPino == true ){
+
+							GetOutDaWay = new MoveBitch(ConjuntoDePinos.RedPino[0], pPath.getRed(), nRandDice);
+							GetOutDaWay.JustDoIt();//Realizando a Jogada
 						}
+
+						/*
+							for (int i = 0; i < 60; i++){
+								if(pPath.getBlue()[i].getline() == cX && pPath.getBlue()[i].getcolumn() == cY){
+									GetOutDaWay = new MoveBitch(ConjuntoDePinos.BluePino[0], pPath.getBlue(), nRandDice);
+								}
+							}*/
 						break;
 
 					}
 
-					GetOutDaWay.JustDoIt();//Realizando a Jogada
+					
 					Round = Round + 1; //Incrementando ao Rodada
 
 					//Redesenhando o panel grafico
@@ -142,6 +178,20 @@ public class Board extends JFrame implements ActionListener{
 
 	}
 
+	public boolean CheckCoordinates(Path CaminhoColorido, int CoordinateX ,int CoordinateY){
+		System.out.printf("X: %d--------Y: %d\n", CoordinateX,CoordinateY);
+		
+		for( int i = 1; i < 58; i++){
+			System.out.printf("Line: %d ----- Line+1: %d --------Coluna: %d -----Coluna+1: %d\n", CaminhoColorido.getRed()[i].getline(),CaminhoColorido.getRed()[i+1].getline(),CaminhoColorido.getRed()[i].getcolumn(),CaminhoColorido.getRed()[i+1].getcolumn());
+			if((CoordinateX >= CaminhoColorido.getRed()[i].getline() && CoordinateX <= CaminhoColorido.getRed()[i+1].getline()) && (CoordinateY >= CaminhoColorido.getRed()[i].getcolumn() &&  CoordinateY <= CaminhoColorido.getRed()[i+1].getcolumn())){
+				System.out.printf("YES!\n");
+				return true;
+			}
+		}
+		System.out.printf("NO!\n");
+		return false;
+	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -153,8 +203,15 @@ public class Board extends JFrame implements ActionListener{
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			System.out.printf("X: %d--------Y: %d\n", cX,cY);
 			cX = e.getX();
 			cY = e.getY();
+			System.out.printf("X: %d--------Y: %d\n", cX,cY);
+			
+			if(CheckCoordinates(pPath, cX, cY) == true ){
+				checkPino = true; //setting flag on
+				System.out.printf("YES!\n");
+			}
 		}
 
 		@Override
