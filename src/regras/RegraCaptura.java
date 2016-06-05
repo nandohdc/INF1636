@@ -7,8 +7,7 @@ import movimento.Path;
 import movimento.PinoEstruturado;
 
 public class RegraCaptura {
-	public PinoEstruturado RegraCaptura(PinoEstruturado mPino){
-		Color mPinoCor = mPino.getColor();
+	public PinoEstruturado RegraDaCaptura(PinoEstruturado mPino){
 		Path pPath = new Path();
 
 		for(int i = 0; i < 4; i++){

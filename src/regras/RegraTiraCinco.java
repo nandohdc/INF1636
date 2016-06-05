@@ -1,7 +1,7 @@
 package regras;
 
 public class RegraTiraCinco {
-	public boolean RegraTiraCinco(int nDado){
+	public boolean RegraDoTiraCinco(int nDado){
 		if(nDado == 5){
 			return true;
 		}

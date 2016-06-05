@@ -18,17 +18,18 @@ public class MoveBitch {
 		this.mDado = Dado;
 	}
 	
-	public PinoEstruturado JustDoIt(){
+	public void JustDoIt(){
 		int setCasa;
 		
+		// Criar Movimento Final -- Mateus
 		if((mPino.getCasa()+this.mDado) > 59){
-			return this.mPino;
+			
 		}
 
 		setCasa = this.mPino.getCasa() + this.mDado;
 		this.mPino.setCasa(setCasa);
 		
-		return this.mPino;
+
 	}
 
 }
