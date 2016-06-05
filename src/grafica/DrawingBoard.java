@@ -1,10 +1,10 @@
 package grafica;
 
 import javax.swing.*;
-import regras.ConjuntoDePinos;
-import regras.House;
-import regras.Path;
 
+import movimento.ConjuntoDePinos;
+import movimento.House;
+import movimento.Path;
 
 import java.awt.*;
 

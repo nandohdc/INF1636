@@ -3,6 +3,11 @@ package grafica;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import movimento.ConjuntoDePinos;
+import movimento.House;
+import movimento.MoveBitch;
+import movimento.Path;
 import regras.*;
 
 
