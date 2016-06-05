@@ -19,6 +19,12 @@ public class Path {
 		this.YellowCaminhoColorido = inicializaArrayCaminhoCor(Color.yellow, this.MatrizCaminhoCompleto);
 	}
 	
+	public House[][] getCaminhoCompleto(){
+		
+		return this.MatrizCaminhoCompleto;
+		
+	}
+	
 	public House[] getGreen(){
 		return this.GreenCaminhoColorido;
 	}
