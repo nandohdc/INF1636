@@ -13,7 +13,7 @@ public class Dice extends JPanel{
 	
 	private static Dice dfirstInstance = null;
 	
-	public static Dice getInstancce(){
+	public static Dice getInstance(){
 		if(dfirstInstance == null){
 			
 			dfirstInstance = new Dice();
