@@ -18,7 +18,7 @@ public class Board extends JFrame{
 	JLabel lImageIconDado;
 	FacadeMovimento fMov;
 	public static int round;
-	
+
 	Board(){
 		new ConjuntoDePinos();
 		GUI = new DrawingBoard();
@@ -78,21 +78,21 @@ public class Board extends JFrame{
 
 
 	public class ActionHandler implements ActionListener{
-		
+
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == RollDice){
 				ImageIcon DadoImageIcon = null;
 
 				RollDice.setEnabled(false);
-				
+
 				fMov = new FacadeMovimento();
-				
+
 				fMov.RollDice();
-				
+
 				GUI.addMouseListener(mHandler);
-				
-				
-				
+
+
+
 				//Montando a Imagem com o numero aletatorio gerado passado com parametro
 				DadoImageIcon = dice.MakingImageDice(Dice.getInstance().getRandNum());
 
@@ -103,23 +103,23 @@ public class Board extends JFrame{
 				GUI.revalidate();
 				GUI.repaint();
 				repaint();
-				
+
 			}
-			
+
 		}
 
 	}
-	
+
 	public class MouseHandler implements MouseListener{
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			int cX = e.getX();
 			int cY = e.getY();
-			
-			fMov.setClickedCoordinates(cX, cY);
 
-			RollDice.setEnabled(true);
+			if(fMov.setClickedCoordinates(cX, cY) == true){
+				RollDice.setEnabled(true);
+			}
 		}
 
 		@Override

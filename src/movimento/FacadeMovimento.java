@@ -33,11 +33,20 @@ public class FacadeMovimento {
 		CoordinateX = coordinateX;
 	}
 	
-	public void setClickedCoordinates(int cX, int cY){
+	public boolean setClickedCoordinates(int cX, int cY){
 		setCoordinateX(cX);
 		setCoordinateY(cY);
 		MoveBitch GetOutDaWay = new MoveBitch(cX, cY, dice.getRandNum());
-		GetOutDaWay.JustDoIt();
 		System.out.printf("cX: %d ----- cY:%d\n",cX, cY);
-	}	
+		
+		if(GetOutDaWay.JustDoIt() == true){
+			return true;
+		}
+		
+		else{
+			return false;
+		}
+
+	}
+	
 }
