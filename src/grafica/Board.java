@@ -25,6 +25,7 @@ public class Board extends JFrame{
 		mHandler = new MouseHandler();
 		aHandler = new ActionHandler();
 		round = 0;
+		
 		//Definindo configuracoes defaults para o JFrame
 		this.setSize(768,640);
 		this.setTitle("LUDO & FRIENDS");
@@ -56,7 +57,7 @@ public class Board extends JFrame{
 
 		//Adicionando ActionListner ao botao RollDice
 		RollDice.addActionListener(aHandler);
-
+		
 		//Adicionando o botao ao box
 		thebox.add(RollDice);
 
@@ -82,6 +83,30 @@ public class Board extends JFrame{
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == RollDice){
 				ImageIcon DadoImageIcon = null;
+				
+				if ( round == 4){
+					round = 0;
+				}
+				
+				switch(round){
+				case 0:
+					RollDice.setBackground(Color.red);
+					break;
+					
+				case 1:
+					RollDice.setBackground(Color.blue);
+					break;
+					
+				case 2:
+					RollDice.setBackground(Color.yellow);
+					break;
+					
+				case 3:
+					RollDice.setBackground(Color.green);
+					break;
+			}
+				
+				RollDice.setOpaque(true);
 
 				RollDice.setEnabled(false);
 
@@ -90,8 +115,6 @@ public class Board extends JFrame{
 				fMov.RollDice();
 
 				GUI.addMouseListener(mHandler);
-
-
 
 				//Montando a Imagem com o numero aletatorio gerado passado com parametro
 				DadoImageIcon = dice.MakingImageDice(Dice.getInstance().getRandNum());
@@ -118,8 +141,38 @@ public class Board extends JFrame{
 			int cY = e.getY();
 
 			if(fMov.setClickedCoordinates(cX, cY) == true){
-				RollDice.setEnabled(true);
+				if ( round == 4){
+					round = 0;
+				}
+				
+				switch(round){
+				case 0:
+					RollDice.setBackground(Color.red);
+					break;
+					
+				case 1:
+					RollDice.setBackground(Color.blue);
+					break;
+					
+				case 2:
+					RollDice.setBackground(Color.yellow);
+					break;
+					
+				case 3:
+					RollDice.setBackground(Color.green);
+					break;
 			}
+				
+				RollDice.setOpaque(true);
+				
+				
+				
+				RollDice.setEnabled(true);
+				if(Dice.getInstance().getRandNum() == 20 || Dice.getInstance().getRandNum() == 10){
+					RollDice.setEnabled(false);
+				}
+			}
+			
 		}
 
 		@Override

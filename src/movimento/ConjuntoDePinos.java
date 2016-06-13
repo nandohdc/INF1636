@@ -7,6 +7,10 @@ public class ConjuntoDePinos {
 	public static PinoEstruturado[] RedPino = new PinoEstruturado[4];
 	public static PinoEstruturado[] BluePino = new PinoEstruturado[4];
 	public static PinoEstruturado[] YellowPino = new PinoEstruturado[4];
+	public static int verde6;
+	public static int vermelho6;
+	public static int azul6;
+	public static int amarelo6;
 
 	private static ConjuntoDePinos cpfirstInstance = null;
 
@@ -20,6 +24,7 @@ public class ConjuntoDePinos {
 	}
 
 	public ConjuntoDePinos(){
+		verde6=0;vermelho6=0;azul6=0;amarelo6=0;
 		for(int i = 1; i < 5; i++){
 			if( i == 1 ){
 				this.GreenPino[i-1] = new PinoEstruturado(1, i, Color.green);

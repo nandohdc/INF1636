@@ -2,6 +2,7 @@ package movimento;
 
 import java.awt.Color;
 import grafica.Board;
+import grafica.Dice;
 
 public class MoveBitch {
 
@@ -275,75 +276,178 @@ public class MoveBitch {
 	public boolean JustDoIt(){
 		int setCasa = -1;
 
-		if(this.mPino != null){
-			if(this.mPino.getCasa() == 0){
-				if(RegraDoTiraCinco(this.mDado, this.mPino) == true){
-					//setCasa = 1;
-					RegraDaCapturaSaida(this.mPino);
+		if(this.mDado == 0){
+			return false;
+		}
+
+		if(CheckJogadaPossivel(this.mPino, this.mDado) == false){
+			Board.round++;
+			return true;
+		}
+		else{
+			if(this.mDado != 6){
+				ConjuntoDePinos.amarelo6 = 0;
+				ConjuntoDePinos.azul6 = 0;
+				ConjuntoDePinos.verde6 = 0;
+				ConjuntoDePinos.vermelho6 = 0;
+			}
+			if(this.mPino != null){
+				if(this.mPino.getCasa() == 0){
+					if(RegraDoTiraCinco(this.mDado) == true){
+						RegraDaCapturaSaida(this.mPino);
+						Board.round++;
+						Dice.getInstance().setRandNum(0);
+						return true;
+					}
+				}
+				else{
+
+					if(RegraDoMovimentoFinal(this.mDado, this.mPino) == true){
+						setCasa = this.mPino.getCasa() + this.mDado;
+						if(setCasa == 59){
+							this.mPino.setCasa(setCasa);
+							Dice.getInstance().setRandNum(10);					//setar dado igual a 10
+							return true;
+						}
+					}
+
+					else{
+						setCasa = this.mPino.getCasa();
+
+					}
+
+					if(this.mDado == 6){
+						if(RegraDoTiraSeis(this.mDado, this.mPino) != 0){
+
+							if(ConjuntoDePinos.vermelho6 < 2 && ConjuntoDePinos.azul6 < 2 && ConjuntoDePinos.amarelo6 < 2 && ConjuntoDePinos.verde6 < 2){
+
+								this.mPino.setCasa(this.mPino.getCasa() + RegraDoTiraSeis(this.mDado, this.mPino));
+
+								if(this.mPino.getColor() == Color.red){
+									ConjuntoDePinos.vermelho6++;
+								}
+
+								else if(this.mPino.getColor() == Color.blue){
+									ConjuntoDePinos.azul6++;
+								}
+
+								else if(this.mPino.getColor() == Color.yellow){
+									ConjuntoDePinos.amarelo6++;
+								}
+
+								else { //if(this.mPino.getColor() == Color.green)
+									ConjuntoDePinos.verde6++;
+								}
+
+								/*if(RegraDaBarreira(this.mPino, this.mDado) == false){
+									return false;
+								}
+
+								else{*/
+
+								if(RegraDoShelter(this.mPino, this.mDado-1) == true){
+									setCasa = this.mPino.getCasa() + this.mDado;
+								}
+
+								else{ 
+
+									if(RegraDaCaptura(this.mDado-1,this.mPino) != null){
+										RegraDaCaptura(this.mDado-1,this.mPino).setCasa(0);
+										this.mPino.setCasa(setCasa);
+										Dice.getInstance().setRandNum(20);					//setar dado igual a 20
+										return true;
+									}
+								}
+								//}
+								Dice.getInstance().setRandNum(0);
+								return true;
+							}
+							else{
+
+								System.out.println("tamo ai sim caralho");
+								this.mPino.setCasa(0);
+								if(this.mPino.getColor() == Color.red){
+									ConjuntoDePinos.vermelho6 = 0;
+								}
+
+								else if(this.mPino.getColor() == Color.blue){
+									ConjuntoDePinos.azul6 = 0;
+								}
+
+								else if(this.mPino.getColor() == Color.yellow){
+									ConjuntoDePinos.amarelo6 = 0;
+								}
+
+								else{ // if(this.mPino.getColor() == Color.green)
+									ConjuntoDePinos.verde6 = 0;
+								}
+
+								Board.round++;
+								Dice.getInstance().setRandNum(0);
+								return true;
+							}
+						}
+						else{
+							System.out.println("nem to aqui");
+							this.mPino.setCasa(0);
+
+							if(this.mPino.getColor() == Color.red){
+								ConjuntoDePinos.vermelho6 = 0;
+							}
+
+							else if(this.mPino.getColor() == Color.blue){
+								ConjuntoDePinos.azul6 = 0;
+							}
+
+							else if(this.mPino.getColor() == Color.yellow){
+								ConjuntoDePinos.amarelo6 = 0;
+							}
+
+							else{ // if(this.mPino.getColor() == Color.green)
+								ConjuntoDePinos.verde6 = 0;
+							}
+
+							Board.round++;
+							Dice.getInstance().setRandNum(0);
+							return true;
+						}
+
+					}
+				}
+				/*if(RegraDaBarreira(this.mPino, this.mDado) == false){
+					return false;
+				}
+
+				else{*/
+
+				if(RegraDoShelter(this.mPino, this.mDado-1) == true){
+					setCasa = this.mPino.getCasa() + this.mDado;
+				}
+
+				else{ 
+
+					if(RegraDaCaptura(this.mDado-1,this.mPino) != null){
+						RegraDaCaptura(this.mDado-1,this.mPino).setCasa(0);
+						this.mPino.setCasa(setCasa);
+						Dice.getInstance().setRandNum(20);					//setar dado igual a 20
+						return true;
+					}
+				}
+				//}
+				if(setCasa >= 0){
+					this.mPino.setCasa(setCasa);
 					Board.round++;
+					Dice.getInstance().setRandNum(0);
 					return true;
 				}
-			}
-			else{
-				if(RegraDoMovimentoFinal(this.mDado, this.mPino) == true){
-					setCasa = this.mPino.getCasa() + this.mDado;
-				}
-				else{
-					setCasa = this.mPino.getCasa();
-				}
-			}
-			if(RegraDaCaptura(this.mDado-1,this.mPino) != null){
-				RegraDaCaptura(this.mDado-1,this.mPino).setCasa(0);
-			}
-			if(setCasa >= 0){
-				this.mPino.setCasa(setCasa);
-				Board.round++;
-				return true;
-			}
 
-		}
-
-		return false;
-		/*
-
-		if(this.mPino != null){
-			if(this.mPino.getCasa() == 0){
-				if(RegraDoTiraCinco(this.mDado, this.mPino) == true){
-					setCasa = 1;
-				}
-			}
-			else{
-				if(RegraDoMovimentoFinal(this.mDado, this.mPino) == true){
-					setCasa = this.mPino.getCasa() + this.mDado;
-				}
-				else{
-					setCasa = this.mPino.getCasa();
-				}
-			}
-			if(RegraDaBarreira(this.mPino,this.mDado) == false){
-				if(this.mPino.getCasa() != 0){
-					setCasa = this.mPino.getCasa() + this.mDado;
-				}
-			}
-			else{
-				if(RegraDaCaptura(this.mPino) != null){
-					RegraDaCaptura(this.mPino).setCasa(0);
-				}
-				setCasa = this.mPino.getCasa();
-			}
-			if(setCasa >= 0){
-				this.mPino.setCasa(setCasa);
-				Board.round++;
-				return true;
 			}
 		}
-
 		return false;
-		 */
+
 	}
 
-	private boolean RegraDoTiraCinco(int nDado, PinoEstruturado mPino){
-		System.out.printf("OK1!\n");
+	private boolean RegraDoTiraCinco(int nDado){
 		if(nDado == 5){
 			return true;
 		}
@@ -373,16 +477,19 @@ public class MoveBitch {
 					if(mPino.getColor() == Color.blue){
 						if(ConjuntoDePinos.RedPino[j].getCasa() == 14){
 							ConjuntoDePinos.RedPino[j].setCasa(0);
+							Dice.getInstance().setRandNum(20);
 						}
 					}
 					else if(mPino.getColor() == Color.yellow){
 						if(ConjuntoDePinos.RedPino[j].getCasa() == 27){
 							ConjuntoDePinos.RedPino[j].setCasa(0);
+							Dice.getInstance().setRandNum(20);
 						}
 					}
 					else if(mPino.getColor() == Color.green){
 						if(ConjuntoDePinos.RedPino[j].getCasa() == 40){
 							ConjuntoDePinos.RedPino[j].setCasa(0);
+							Dice.getInstance().setRandNum(20);
 						}
 					}
 				}
@@ -390,16 +497,19 @@ public class MoveBitch {
 					if(mPino.getColor() == Color.yellow){
 						if(ConjuntoDePinos.BluePino[j].getCasa() == 14){
 							ConjuntoDePinos.BluePino[j].setCasa(0);
+							Dice.getInstance().setRandNum(20);
 						}
 					}
 					else if(mPino.getColor() == Color.green){
 						if(ConjuntoDePinos.BluePino[j].getCasa() == 27){
 							ConjuntoDePinos.BluePino[j].setCasa(0);
+							Dice.getInstance().setRandNum(20);
 						}
 					}
 					else if(mPino.getColor() == Color.red){
 						if(ConjuntoDePinos.BluePino[j].getCasa() == 40){
 							ConjuntoDePinos.BluePino[j].setCasa(0);
+							Dice.getInstance().setRandNum(20);
 						}
 					}
 				}
@@ -407,16 +517,19 @@ public class MoveBitch {
 					if(mPino.getColor() == Color.green){
 						if(ConjuntoDePinos.YellowPino[j].getCasa() == 14){
 							ConjuntoDePinos.YellowPino[j].setCasa(0);
+							Dice.getInstance().setRandNum(20);
 						}
 					}
 					else if(mPino.getColor() == Color.red){
 						if(ConjuntoDePinos.YellowPino[j].getCasa() == 27){
 							ConjuntoDePinos.YellowPino[j].setCasa(0);
+							Dice.getInstance().setRandNum(20);
 						}
 					}
 					else if(mPino.getColor() == Color.blue){
 						if(ConjuntoDePinos.YellowPino[j].getCasa() == 40){
 							ConjuntoDePinos.YellowPino[j].setCasa(0);
+							Dice.getInstance().setRandNum(20);
 						}
 					}
 				}
@@ -424,16 +537,19 @@ public class MoveBitch {
 					if(mPino.getColor() == Color.red){
 						if(ConjuntoDePinos.GreenPino[j].getCasa() == 14){
 							ConjuntoDePinos.GreenPino[j].setCasa(0);
+							Dice.getInstance().setRandNum(20);
 						}
 					}
 					else if(mPino.getColor() == Color.blue){
 						if(ConjuntoDePinos.GreenPino[j].getCasa() == 27){
 							ConjuntoDePinos.GreenPino[j].setCasa(0);
+							Dice.getInstance().setRandNum(20);
 						}
 					}
 					else if(mPino.getColor() == Color.yellow){
 						if(ConjuntoDePinos.GreenPino[j].getCasa() == 40){
 							ConjuntoDePinos.GreenPino[j].setCasa(0);
+							Dice.getInstance().setRandNum(20);
 						}
 					}
 				}
@@ -441,7 +557,7 @@ public class MoveBitch {
 			mPino.setCasa(1);
 		}
 	}
-	
+
 	private PinoEstruturado RegraDaCaptura(int nDado, PinoEstruturado mPino){
 		Path pPath = new Path();
 
@@ -645,125 +761,6 @@ public class MoveBitch {
 		return null;
 	}
 
-	private boolean RegraDaBarreira(PinoEstruturado mPino , int nDado){
-		Path pPath = new Path();
-
-		for(int i = 1; i < nDado; i++){
-
-			if(mPino.getColor() == Color.red){
-				for(int j = 0 ; j < 4; j++){
-					if((pPath.getRed()[(mPino.getCasa() + i)].getline() == pPath.getRed()[ConjuntoDePinos.RedPino[j].getCasa()].getline()) && (pPath.getRed()[(mPino.getCasa() + i)].getcolumn() == pPath.getRed()[ConjuntoDePinos.RedPino[j].getCasa()].getcolumn())){
-
-						return CheckBarrier(ConjuntoDePinos.RedPino[j]);
-
-					}
-					else if((pPath.getRed()[(mPino.getCasa() + i)].getline() == pPath.getBlue()[ConjuntoDePinos.BluePino[j].getCasa()].getline()) && (pPath.getRed()[(mPino.getCasa() + i)].getcolumn() == pPath.getBlue()[ConjuntoDePinos.BluePino[j].getCasa()].getcolumn())){
-
-						return CheckBarrier(ConjuntoDePinos.BluePino[j]);
-
-					}
-					else if((pPath.getRed()[(mPino.getCasa() + i)].getline() == pPath.getYellow()[ConjuntoDePinos.YellowPino[j].getCasa()].getline()) && (pPath.getRed()[(mPino.getCasa() + i)].getcolumn() == pPath.getYellow()[ConjuntoDePinos.YellowPino[j].getCasa()].getcolumn())){
-
-						return CheckBarrier(ConjuntoDePinos.YellowPino[j]);
-
-					}
-					else if((pPath.getRed()[(mPino.getCasa() + i)].getline() == pPath.getGreen()[ConjuntoDePinos.GreenPino[j].getCasa()].getline()) && (pPath.getRed()[(mPino.getCasa() + i)].getcolumn() == pPath.getGreen()[ConjuntoDePinos.GreenPino[j].getCasa()].getcolumn())){
-
-						return CheckBarrier(ConjuntoDePinos.GreenPino[j]);
-
-					}
-
-				}
-
-			}
-
-			else if(mPino.getColor() == Color.blue){
-
-				for(int j = 0 ; j < 4; j++){
-					if((pPath.getBlue()[(mPino.getCasa() + i)].getline() == pPath.getRed()[ConjuntoDePinos.RedPino[j].getCasa()].getline()) && (pPath.getBlue()[(mPino.getCasa() + i)].getcolumn() == pPath.getRed()[ConjuntoDePinos.RedPino[j].getCasa()].getcolumn())){
-
-						return CheckBarrier(ConjuntoDePinos.RedPino[j]);
-
-					}
-					else if((pPath.getBlue()[(mPino.getCasa() + i)].getline() == pPath.getBlue()[ConjuntoDePinos.BluePino[j].getCasa()].getline()) && (pPath.getBlue()[(mPino.getCasa() + i)].getcolumn() == pPath.getBlue()[ConjuntoDePinos.BluePino[j].getCasa()].getcolumn())){
-
-						return CheckBarrier(ConjuntoDePinos.BluePino[j]);
-
-					}
-					else if((pPath.getBlue()[(mPino.getCasa() + i)].getline() == pPath.getYellow()[ConjuntoDePinos.YellowPino[j].getCasa()].getline()) && (pPath.getBlue()[(mPino.getCasa() + i)].getcolumn() == pPath.getYellow()[ConjuntoDePinos.YellowPino[j].getCasa()].getcolumn())){
-
-						return CheckBarrier(ConjuntoDePinos.YellowPino[j]);
-
-					}
-					else if((pPath.getBlue()[(mPino.getCasa() + i)].getline() == pPath.getGreen()[ConjuntoDePinos.GreenPino[j].getCasa()].getline()) && (pPath.getBlue()[(mPino.getCasa() + i)].getcolumn() == pPath.getGreen()[ConjuntoDePinos.GreenPino[j].getCasa()].getcolumn())){
-
-						return CheckBarrier(ConjuntoDePinos.GreenPino[j]);
-
-					}
-
-				}
-
-			}
-
-			else if(mPino.getColor() == Color.yellow){
-
-				for(int j = 0 ; j < 4; j++){
-					if((pPath.getYellow()[(mPino.getCasa() + i)].getline() == pPath.getRed()[ConjuntoDePinos.RedPino[j].getCasa()].getline()) && (pPath.getYellow()[(mPino.getCasa() + i)].getcolumn() == pPath.getRed()[ConjuntoDePinos.RedPino[j].getCasa()].getcolumn())){
-
-						return CheckBarrier(ConjuntoDePinos.RedPino[j]);
-
-					}
-					else if((pPath.getYellow()[(mPino.getCasa() + i)].getline() == pPath.getBlue()[ConjuntoDePinos.BluePino[j].getCasa()].getline()) && (pPath.getYellow()[(mPino.getCasa() + i)].getcolumn() == pPath.getBlue()[ConjuntoDePinos.BluePino[j].getCasa()].getcolumn())){
-
-						return CheckBarrier(ConjuntoDePinos.BluePino[j]);
-
-					}
-					else if((pPath.getYellow()[(mPino.getCasa() + i)].getline() == pPath.getYellow()[ConjuntoDePinos.YellowPino[j].getCasa()].getline()) && (pPath.getYellow()[(mPino.getCasa() + i)].getcolumn() == pPath.getYellow()[ConjuntoDePinos.YellowPino[j].getCasa()].getcolumn())){
-
-						return CheckBarrier(ConjuntoDePinos.YellowPino[j]);
-
-					}
-					else if((pPath.getYellow()[(mPino.getCasa() + i)].getline() == pPath.getGreen()[ConjuntoDePinos.GreenPino[j].getCasa()].getline()) && (pPath.getYellow()[(mPino.getCasa() + i)].getcolumn() == pPath.getGreen()[ConjuntoDePinos.GreenPino[j].getCasa()].getcolumn())){
-
-						return CheckBarrier(ConjuntoDePinos.GreenPino[j]);
-
-					}
-
-
-				}
-
-			}
-
-			else{ //Caso da cor do pino ser verde
-
-				for(int j = 0 ; j < 4; j++){
-					if((pPath.getGreen()[(mPino.getCasa() + i)].getline() == pPath.getRed()[ConjuntoDePinos.RedPino[j].getCasa()].getline()) && (pPath.getGreen()[(mPino.getCasa() + i)].getcolumn() == pPath.getRed()[ConjuntoDePinos.RedPino[j].getCasa()].getcolumn())){
-
-						return CheckBarrier(ConjuntoDePinos.RedPino[j]);
-
-					}
-					else if((pPath.getGreen()[(mPino.getCasa() + i)].getline() == pPath.getBlue()[ConjuntoDePinos.BluePino[j].getCasa()].getline()) && (pPath.getGreen()[(mPino.getCasa() + i)].getcolumn() == pPath.getBlue()[ConjuntoDePinos.BluePino[j].getCasa()].getcolumn())){
-
-						return CheckBarrier(ConjuntoDePinos.BluePino[j]);
-
-					}
-					else if((pPath.getGreen()[(mPino.getCasa() + i)].getline() == pPath.getYellow()[ConjuntoDePinos.YellowPino[j].getCasa()].getline()) && (pPath.getGreen()[(mPino.getCasa() + i)].getcolumn() == pPath.getYellow()[ConjuntoDePinos.YellowPino[j].getCasa()].getcolumn())){
-
-						return CheckBarrier(ConjuntoDePinos.YellowPino[j]);
-
-					}
-					else if((pPath.getGreen()[(mPino.getCasa() + i)].getline() == pPath.getGreen()[ConjuntoDePinos.GreenPino[j].getCasa()].getline()) && (pPath.getGreen()[(mPino.getCasa() + i)].getcolumn() == pPath.getGreen()[ConjuntoDePinos.GreenPino[j].getCasa()].getcolumn())){
-
-						return CheckBarrier(ConjuntoDePinos.GreenPino[j]);
-
-					}
-				}
-			}
-		}
-		return false;
-
-	}
-
 	private boolean CheckBarrier(PinoEstruturado mPino){
 		int OContador = 0;
 
@@ -786,14 +783,10 @@ public class MoveBitch {
 				}
 			}
 
-			else if(mPino.getColor() == Color.green){
+			else{ // if(mPino.getColor() == Color.green)
 				if(mPino.getCasa() == ConjuntoDePinos.GreenPino[i].getCasa()){
 					OContador++;
 				}
-			}
-
-			else{
-				//Cor nao encontrada
 			}
 
 		}
@@ -807,4 +800,325 @@ public class MoveBitch {
 		return true;
 	}
 
+	private boolean RegraDaBarreira(PinoEstruturado mPino , int nDado){
+		Path pPath = new Path();
+
+		for(int i = 1; i < nDado; i++){
+
+			if(mPino.getColor() == Color.red){
+				for(int j = 0 ; j < 4; j++){
+					if((pPath.getRed()[(mPino.getCasa() + i)].getline() == pPath.getRed()[ConjuntoDePinos.RedPino[j].getCasa()].getline()) && (pPath.getRed()[(mPino.getCasa() + i)].getcolumn() == pPath.getRed()[ConjuntoDePinos.RedPino[j].getCasa()].getcolumn())){
+
+						if (CheckBarrier(ConjuntoDePinos.RedPino[j]) == false){
+							return false;
+						}
+						else{
+
+						}
+
+					}
+					else if((pPath.getRed()[(mPino.getCasa() + i)].getline() == pPath.getBlue()[ConjuntoDePinos.BluePino[j].getCasa()].getline()) && (pPath.getRed()[(mPino.getCasa() + i)].getcolumn() == pPath.getBlue()[ConjuntoDePinos.BluePino[j].getCasa()].getcolumn())){
+
+						if (CheckBarrier(ConjuntoDePinos.BluePino[j]) == false){
+							return false;
+						}
+						else{
+
+						}
+
+					}
+					else if((pPath.getRed()[(mPino.getCasa() + i)].getline() == pPath.getYellow()[ConjuntoDePinos.YellowPino[j].getCasa()].getline()) && (pPath.getRed()[(mPino.getCasa() + i)].getcolumn() == pPath.getYellow()[ConjuntoDePinos.YellowPino[j].getCasa()].getcolumn())){
+
+						if (CheckBarrier(ConjuntoDePinos.YellowPino[j]) == false){
+							return false;
+						}
+
+						else{
+
+						}
+
+					}
+					else if((pPath.getRed()[(mPino.getCasa() + i)].getline() == pPath.getGreen()[ConjuntoDePinos.GreenPino[j].getCasa()].getline()) && (pPath.getRed()[(mPino.getCasa() + i)].getcolumn() == pPath.getGreen()[ConjuntoDePinos.GreenPino[j].getCasa()].getcolumn())){
+
+						if (CheckBarrier(ConjuntoDePinos.GreenPino[j]) == false){
+							return false;
+						}
+
+						else{
+
+						}
+
+					}
+
+				}
+
+			}
+
+			else if(mPino.getColor() == Color.blue){
+
+				for(int j = 0 ; j < 4; j++){
+					if((pPath.getBlue()[(mPino.getCasa() + i)].getline() == pPath.getRed()[ConjuntoDePinos.RedPino[j].getCasa()].getline()) && (pPath.getBlue()[(mPino.getCasa() + i)].getcolumn() == pPath.getRed()[ConjuntoDePinos.RedPino[j].getCasa()].getcolumn())){
+
+						if (CheckBarrier(ConjuntoDePinos.RedPino[j]) == false){
+							return false;
+						}
+						else{
+
+						}
+
+					}
+					else if((pPath.getBlue()[(mPino.getCasa() + i)].getline() == pPath.getBlue()[ConjuntoDePinos.BluePino[j].getCasa()].getline()) && (pPath.getBlue()[(mPino.getCasa() + i)].getcolumn() == pPath.getBlue()[ConjuntoDePinos.BluePino[j].getCasa()].getcolumn())){
+
+						if (CheckBarrier(ConjuntoDePinos.BluePino[j]) == false){
+							return false;
+						}
+						else{
+
+						}
+
+					}
+					else if((pPath.getBlue()[(mPino.getCasa() + i)].getline() == pPath.getYellow()[ConjuntoDePinos.YellowPino[j].getCasa()].getline()) && (pPath.getBlue()[(mPino.getCasa() + i)].getcolumn() == pPath.getYellow()[ConjuntoDePinos.YellowPino[j].getCasa()].getcolumn())){
+
+						if (CheckBarrier(ConjuntoDePinos.YellowPino[j]) == false){
+							return false;
+						}
+
+						else{
+
+						}
+					}
+					else if((pPath.getBlue()[(mPino.getCasa() + i)].getline() == pPath.getGreen()[ConjuntoDePinos.GreenPino[j].getCasa()].getline()) && (pPath.getBlue()[(mPino.getCasa() + i)].getcolumn() == pPath.getGreen()[ConjuntoDePinos.GreenPino[j].getCasa()].getcolumn())){
+
+						if (CheckBarrier(ConjuntoDePinos.GreenPino[j]) == false){
+							return false;
+						}
+
+						else{
+
+						}
+
+					}
+
+				}
+
+			}
+
+			else if(mPino.getColor() == Color.yellow){
+
+				for(int j = 0 ; j < 4; j++){
+					if((pPath.getYellow()[(mPino.getCasa() + i)].getline() == pPath.getRed()[ConjuntoDePinos.RedPino[j].getCasa()].getline()) && (pPath.getYellow()[(mPino.getCasa() + i)].getcolumn() == pPath.getRed()[ConjuntoDePinos.RedPino[j].getCasa()].getcolumn())){
+
+						if (CheckBarrier(ConjuntoDePinos.RedPino[j]) == false){
+							return false;
+						}
+						else{
+
+						}
+
+					}
+					else if((pPath.getYellow()[(mPino.getCasa() + i)].getline() == pPath.getBlue()[ConjuntoDePinos.BluePino[j].getCasa()].getline()) && (pPath.getYellow()[(mPino.getCasa() + i)].getcolumn() == pPath.getBlue()[ConjuntoDePinos.BluePino[j].getCasa()].getcolumn())){
+
+						if (CheckBarrier(ConjuntoDePinos.BluePino[j]) == false){
+							return false;
+						}
+						else{
+
+						}
+
+					}
+					else if((pPath.getYellow()[(mPino.getCasa() + i)].getline() == pPath.getYellow()[ConjuntoDePinos.YellowPino[j].getCasa()].getline()) && (pPath.getYellow()[(mPino.getCasa() + i)].getcolumn() == pPath.getYellow()[ConjuntoDePinos.YellowPino[j].getCasa()].getcolumn())){
+
+						if (CheckBarrier(ConjuntoDePinos.YellowPino[j]) == false){
+							return false;
+						}
+
+						else{
+
+						}
+
+					}
+					else if((pPath.getYellow()[(mPino.getCasa() + i)].getline() == pPath.getGreen()[ConjuntoDePinos.GreenPino[j].getCasa()].getline()) && (pPath.getYellow()[(mPino.getCasa() + i)].getcolumn() == pPath.getGreen()[ConjuntoDePinos.GreenPino[j].getCasa()].getcolumn())){
+
+						if (CheckBarrier(ConjuntoDePinos.GreenPino[j]) == false){
+							return false;
+						}
+
+						else{
+
+						}
+
+					}
+
+
+				}
+
+			}
+
+			else{ //Caso da cor do pino ser verde
+
+				for(int j = 0 ; j < 4; j++){
+					if((pPath.getGreen()[(mPino.getCasa() + i)].getline() == pPath.getRed()[ConjuntoDePinos.RedPino[j].getCasa()].getline()) && (pPath.getGreen()[(mPino.getCasa() + i)].getcolumn() == pPath.getRed()[ConjuntoDePinos.RedPino[j].getCasa()].getcolumn())){
+
+						if (CheckBarrier(ConjuntoDePinos.RedPino[j]) == false){
+							return false;
+						}
+						else{
+
+						}
+
+					}
+					else if((pPath.getGreen()[(mPino.getCasa() + i)].getline() == pPath.getBlue()[ConjuntoDePinos.BluePino[j].getCasa()].getline()) && (pPath.getGreen()[(mPino.getCasa() + i)].getcolumn() == pPath.getBlue()[ConjuntoDePinos.BluePino[j].getCasa()].getcolumn())){
+
+						if (CheckBarrier(ConjuntoDePinos.BluePino[j]) == false){
+							return false;
+						}
+						else{
+
+						}
+
+					}
+					else if((pPath.getGreen()[(mPino.getCasa() + i)].getline() == pPath.getYellow()[ConjuntoDePinos.YellowPino[j].getCasa()].getline()) && (pPath.getGreen()[(mPino.getCasa() + i)].getcolumn() == pPath.getYellow()[ConjuntoDePinos.YellowPino[j].getCasa()].getcolumn())){
+
+						if (CheckBarrier(ConjuntoDePinos.YellowPino[j]) == false){
+							return false;
+						}
+
+						else{
+
+						}
+
+					}
+					else if((pPath.getGreen()[(mPino.getCasa() + i)].getline() == pPath.getGreen()[ConjuntoDePinos.GreenPino[j].getCasa()].getline()) && (pPath.getGreen()[(mPino.getCasa() + i)].getcolumn() == pPath.getGreen()[ConjuntoDePinos.GreenPino[j].getCasa()].getcolumn())){
+
+						if (CheckBarrier(ConjuntoDePinos.GreenPino[j]) == false){
+							return false;
+						}
+
+						else{
+
+						}
+
+					}
+				}
+			}
+		}
+		return true;
+
+	}
+
+	private int RegraDoTiraSeis(int mDado, PinoEstruturado mPino){
+		int aux = 0;
+
+		for(int i = 0; i < 4; i++){
+			if(mPino.getColor() == Color.red && ConjuntoDePinos.RedPino[i].getCasa() == 0){
+				aux++;
+			}
+			else if(mPino.getColor() == Color.blue && ConjuntoDePinos.BluePino[i].getCasa() == 0){
+				aux++;
+			}
+			else if(mPino.getColor() == Color.yellow && ConjuntoDePinos.YellowPino[i].getCasa() == 0){
+				aux++;
+			}
+			else if(mPino.getColor() == Color.green && ConjuntoDePinos.GreenPino[i].getCasa() == 0){
+				aux++;
+			}
+		}
+		if(aux > 0){
+			return 6;
+		}
+		else{
+			return 7;
+		}
+
+	}
+
+	private boolean RegraDoShelter(PinoEstruturado mPino, int mDado){
+		Path pPath =  new Path();
+		House[] ArrayShelter = new House[8];
+		ArrayShelter[0] = new House(240, 40);
+		ArrayShelter[1] = new House(520, 240);
+		ArrayShelter[2] = new House(320, 520);
+		ArrayShelter[3] = new House(40, 320);
+		ArrayShelter[4] = new House(320, 40); // Casa inicial Vermelho
+		ArrayShelter[5] = new House(520, 320); // Casa inicial Azul
+		ArrayShelter[6] = new House(240, 520); // Casa inicial Amarelo
+		ArrayShelter[7] = new House(40, 240); // Casa inicial Verde
+
+		for(int i  = 0; i < 8 ; i++){
+			if(mPino.getColor() == Color.red){
+				if((pPath.getRed()[mPino.getCasa() + mDado].getline() == ArrayShelter[i].getline()) && (pPath.getRed()[mPino.getCasa() + mDado].getcolumn() == ArrayShelter[i].getcolumn())){
+					return true;
+				}
+
+			}
+
+			else if(mPino.getColor() == Color.blue){
+				if((pPath.getBlue()[mPino.getCasa() + mDado].getline() == ArrayShelter[i].getline()) && (pPath.getBlue()[mPino.getCasa() + mDado].getcolumn() == ArrayShelter[i].getcolumn())){
+					return true;
+				}
+
+			}
+
+			else if(mPino.getColor() == Color.yellow){
+				if((pPath.getYellow()[mPino.getCasa() + mDado].getline() == ArrayShelter[i].getline()) && (pPath.getYellow()[mPino.getCasa() + mDado].getcolumn() == ArrayShelter[i].getcolumn())){
+					return true;
+				}
+
+			}
+
+			else{//mPino.getColor() == Color.green
+				if((pPath.getGreen()[mPino.getCasa() + mDado].getline() == ArrayShelter[i].getline()) && (pPath.getGreen()[mPino.getCasa() + mDado].getcolumn() == ArrayShelter[i].getcolumn())){
+					return true;
+				}
+
+			}
+		}
+		return false;
+
+
+	}
+
+	private boolean CheckJogadaPossivel(PinoEstruturado mPino, int nDado){
+		int OContador = 0;
+
+
+		for(int i = 0 ; i < 4 ; i++){
+			if(Board.round == 0){
+
+				if(ConjuntoDePinos.RedPino[i].getCasa() == 0){
+					OContador++;
+				}
+			}
+
+			else if(Board.round == 1){
+
+				if(ConjuntoDePinos.BluePino[i].getCasa() == 0){
+					OContador++;
+				}
+			}
+
+			else if(Board.round == 2){
+
+				if(ConjuntoDePinos.YellowPino[i].getCasa() == 0){
+					OContador++;
+				}
+			}
+
+			else{
+
+				if(ConjuntoDePinos.GreenPino[i].getCasa() == 0){
+					OContador++;
+				}
+			}
+		}
+
+		if(OContador == 4 && nDado != 5){
+			System.out.println("MATEUS TA NO WHATSAPP!");
+			return false;
+		}
+
+
+		return true;
+	}
 }
+

@@ -2,8 +2,6 @@ package movimento;
 
 public class House {
 	
-	House[][] MatrizCaminho = new House[15][15];
-	
 	private int line; // Coordenada linha da Casa
 	private int column; // Coordenada coluna da Casa
 	private int qtdPinos;//Qtd de Pinos presentes na Casa

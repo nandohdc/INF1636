@@ -10,6 +10,7 @@ import java.util.Random;
 @SuppressWarnings("serial")
 public class Dice extends JPanel{
 	int nRand = 0;
+	int limite6 = 0;
 	
 	private static Dice dfirstInstance = null;
 	
@@ -24,6 +25,7 @@ public class Dice extends JPanel{
 	
 	public Dice(){
 		this.nRand = 0;
+		this.limite6 = 0;
 	}
 
 	public void generatingRandomNumberDice(){
@@ -31,6 +33,7 @@ public class Dice extends JPanel{
 		Random Rand = new Random();
 		this.nRand = Rand.nextInt(6)+1;
 	}
+
 
 
 	public ImageIcon MakingImageDice(int nRand){
@@ -102,4 +105,10 @@ public class Dice extends JPanel{
 	public int getRandNum(){
 		return this.nRand;
 	}
+	
+	public void setRandNum(int dado){
+		this.nRand = dado;
+		
+	}
+		
 }
