@@ -2,26 +2,59 @@ package grafica;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.swing.*;
 import movimento.ConjuntoDePinos;
 import movimento.FacadeMovimento;
 import movimento.Path;
-
+import movimento.PinoEstruturado;
 
 @SuppressWarnings("serial")
 public class Board extends JFrame{
+	// Variaveis de Classe
 	JButton RollDice;
-	DrawingBoard GUI;
+	JButton Save;
 	MouseHandler mHandler;
 	ActionHandler aHandler;
-	Dice dice;
 	JLabel lImageIconDado;
-	FacadeMovimento fMov;
 	public static int round;
+	JFileChooser explorer = new JFileChooser();
+	
+	private static Board bdfirstInstance = null;
+	
+	public static Board getInstancce(){
+		if(bdfirstInstance == null){
 
+			bdfirstInstance = new Board();
+		}
+
+		return bdfirstInstance;
+	}
+	
 	Board(){
+		
+		PinoEstruturado pPino = new PinoEstruturado();
+		
+		//Criando Objeto do tipo DrawingBoard--  Singleton
+		//GUI = 
+		new DrawingBoard(pPino);
+		
+		//Criando objeto do tipo ConjuntoDePinos -- Singleton
 		new ConjuntoDePinos();
-		GUI = new DrawingBoard();
+		
+		//Criando objeto do tipo Dice -- Singleton
+		new Dice();
+		
+		//Criando objeto do tipo Path -- Singleton
+		new Path();
+		
+		//Criando Objeto do tipo FacadeMovimento --  Singleton
+		new FacadeMovimento();
+		
 		mHandler = new MouseHandler();
 		aHandler = new ActionHandler();
 		round = 0;
@@ -40,9 +73,6 @@ public class Board extends JFrame{
 		//Criando Box para dividir o Frame em partes: Tabuleiro e Dado.
 		Box thebox = Box.createVerticalBox();
 
-		//Criando objeto do tipo Dice
-		dice = new Dice();
-
 		//Criando um Label para adicionar a img e chamando a funcao que cria as imagens do dado
 		lImageIconDado = new JLabel();
 
@@ -54,18 +84,27 @@ public class Board extends JFrame{
 
 		//Criando o botao(RollDice)
 		RollDice = new JButton("Roll Dice");
-
+		
+		//Criando o botao (Save)
+		Save = new JButton("Save");
+		
 		//Adicionando ActionListner ao botao RollDice
 		RollDice.addActionListener(aHandler);
 		
-		//Adicionando o botao ao box
+		//Adicionando ActionListner ao botao Save
+		Save.addActionListener(aHandler);
+		
+		//Adicionando o botao RollDice ao box
 		thebox.add(RollDice);
-
+		
+		//Adicionando o box do Save ao box
+		thebox.add(Save);
+		
 		//Adicionando o box do dado para o panel
 		this.add(thebox, BorderLayout.EAST);
-
+		
 		//Fazendo com que a area desenhada tome conta da parte central do frame
-		this.add(GUI ,BorderLayout.CENTER);
+		this.add(DrawingBoard.getInstancce() ,BorderLayout.CENTER);
 
 		//Setting a posicao de centralizacao
 		this.setLocation(xPos,yPos);
@@ -110,23 +149,31 @@ public class Board extends JFrame{
 
 				RollDice.setEnabled(false);
 
-				fMov = new FacadeMovimento();
+				FacadeMovimento.getInstance().RollDice();
 
-				fMov.RollDice();
-
-				GUI.addMouseListener(mHandler);
+				DrawingBoard.getInstancce().addMouseListener(mHandler);
 
 				//Montando a Imagem com o numero aletatorio gerado passado com parametro
-				DadoImageIcon = dice.MakingImageDice(Dice.getInstance().getRandNum());
+				DadoImageIcon = Dice.getInstance().MakingImageDice(Dice.getInstance().getRandNum());
 
 				//Adicionando a imagem ao label
 				lImageIconDado.setIcon(DadoImageIcon);
 
 				//Redesenhando o panel grafico
-				GUI.revalidate();
-				GUI.repaint();
-				repaint();
+				//DrawingBoard.getInstancce().revalidate();
+				//DrawingBoard.getInstancce().repaint();
+				//repaint();
 
+			}
+			
+			else if(e.getSource() == Save){
+				int value = explorer.showOpenDialog(Save);
+				if (value == JFileChooser.APPROVE_OPTION) {
+					File file = explorer.getSelectedFile();
+					// load from file
+					System.out.println("Save as file: " + file.getAbsolutePath());
+				}
+				
 			}
 
 		}
@@ -140,7 +187,7 @@ public class Board extends JFrame{
 			int cX = e.getX();
 			int cY = e.getY();
 
-			if(fMov.setClickedCoordinates(cX, cY) == true){
+			if(FacadeMovimento.getInstance().setClickedCoordinates(cX, cY) == true){
 				if ( round == 4){
 					round = 0;
 				}

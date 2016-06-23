@@ -6,6 +6,17 @@ import javax.swing.JComponent;
 
 @SuppressWarnings("serial")
 public class Pocket extends JComponent{
+
+	private static Pocket POCKETfirstInstance = null;
+	
+	public static Pocket getInstance(){
+		if(POCKETfirstInstance == null){
+			
+			POCKETfirstInstance = new Pocket();
+		}
+		
+		return POCKETfirstInstance;
+	}
 	
 	public Pocket(){
 		

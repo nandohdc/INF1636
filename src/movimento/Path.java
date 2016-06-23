@@ -9,6 +9,16 @@ public class Path {
 	House[] BlueCaminhoColorido = new House[59];
 	House[] YellowCaminhoColorido = new House[59];
 	
+	private static Path pfirstInstance = null;
+	
+	public static Path getInstance(){
+		if(pfirstInstance == null){
+			
+			pfirstInstance = new Path();
+		}
+		
+		return pfirstInstance;
+	}
 	
 	
 	public Path(){

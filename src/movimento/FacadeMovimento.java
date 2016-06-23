@@ -2,10 +2,21 @@ package movimento;
 
 import grafica.Dice;
 
-public class FacadeMovimento {
+public class FacadeMovimento{
 	private int CoordinateX;
 	private int CoordinateY;
 	Dice dice;
+	
+private static FacadeMovimento fmfirstInstance = null;
+	
+	public static FacadeMovimento getInstance(){
+		if(fmfirstInstance == null){
+			
+			fmfirstInstance = new FacadeMovimento();
+		}
+		
+		return fmfirstInstance;
+	}
 	
 	public FacadeMovimento(){
 		setCoordinateX(-1);
@@ -48,5 +59,4 @@ public class FacadeMovimento {
 		}
 
 	}
-	
 }

@@ -4,11 +4,22 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
-
 import javax.swing.JComponent;
+
 
 @SuppressWarnings("serial")
 public class Yard extends JComponent{
+	
+private static Yard YARDfirstInstance = null;
+	
+	public static Yard getInstance(){
+		if(YARDfirstInstance == null){
+			
+			YARDfirstInstance = new Yard();
+		}
+		
+		return YARDfirstInstance;
+	}
 
 	public Yard(){
 

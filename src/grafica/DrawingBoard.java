@@ -1,37 +1,61 @@
 package grafica;
 
-import javax.swing.*;
-
-import movimento.ConjuntoDePinos;
-import movimento.House;
-import movimento.Path;
-
-import java.awt.*;
-
 import java.awt.geom.*;
+import java.util.ArrayList;
+import java.awt.*;
+import javax.swing.*;
+import movimento.Observer;
+import movimento.Path;
+import movimento.Subject;
+
 
 @SuppressWarnings("serial")
-class DrawingBoard extends JPanel{
+
+class DrawingBoard extends JPanel implements Observer{
+	//Variavel do Tipo Graphics2D para conseguir desenhar o tabuleiro
 	Graphics2D graphSettings;
-	Pocket pocket = new Pocket();
-	Yard yard = new Yard();
-	private Path pPath = new Path();
 
-	private static DrawingBoard bdfirstInstance = null;
+	//Variavel de class para Singleton
+	private static DrawingBoard dbfirstInstance = null;
 
-	public DrawingBoard(){
+	//Static used as a counter
+	private static int ObserverIDTracker = 0;
+
+	//Used to track the observer
+	private int ObserverID;
+
+	//Will hold reference to the DrawingBoard object
+	private static Subject PinoEstruturado;
+
+	//Arraylist do tipo PinoEstruturado para guardar todas as alteracoes feitas no metodo update -- Observer
+	private ArrayList<movimento.PinoEstruturado> Pinos = new ArrayList<movimento.PinoEstruturado>();
+
+	public DrawingBoard(Subject PinoEstruturado){
 		this.setSize(768,640);
+		
+		//Guardar a referencia para o DrawingBoard objeto
+		//Para assim a gente conseguir chamar em métodos
+		this.PinoEstruturado = PinoEstruturado;
+
+		//Incrementando o contado statico
+		this.ObserverID = ++ObserverIDTracker;
+
+		//Mensagem que notifica o usuario de um novo observador
+		System.out.println("New Observer" + this.ObserverID);
+
+		//Add o observer para a Arralist
+		PinoEstruturado.register(this);
 
 	}
 
-
+	//Singleton da Class -- DrawingBoard
 	public static DrawingBoard getInstancce(){
-		if(bdfirstInstance == null){
+		if(dbfirstInstance == null){
 
-			bdfirstInstance = new DrawingBoard();
+			dbfirstInstance = new DrawingBoard(PinoEstruturado);
 		}
 
-		return bdfirstInstance;
+		return dbfirstInstance;
 	}
 
 	@Override
@@ -41,18 +65,22 @@ class DrawingBoard extends JPanel{
 
 		paintBoard();
 
-		for (int i = 0; i < 4; i++){
-			paintPino(ConjuntoDePinos.RedPino[i].getCasa(), ConjuntoDePinos.RedPino[i].getColor(),ConjuntoDePinos.RedPino[i].getNumero(), pPath.getRed());
-			paintPino(ConjuntoDePinos.BluePino[i].getCasa(), ConjuntoDePinos.BluePino[i].getColor(),ConjuntoDePinos.BluePino[i].getNumero(), pPath.getBlue());
-			paintPino(ConjuntoDePinos.YellowPino[i].getCasa(), ConjuntoDePinos.YellowPino[i].getColor(),ConjuntoDePinos.YellowPino[i].getNumero(), pPath.getYellow());
-			paintPino(ConjuntoDePinos.GreenPino[i].getCasa(), ConjuntoDePinos.GreenPino[i].getColor(),ConjuntoDePinos.GreenPino[i].getNumero(), pPath.getGreen());
-		}
+		for(int i = 0; i < Pinos.size(); i++ ){
 
+			paintPino(Pinos.get(i).getCasa(),Pinos.get(i).getColor(), Pinos.get(i).getNumero());
+		}
+		
+		revalidate();
 		repaint();
 	}
 
 
 	public void paintBoard() {
+		//Criando objeto do tipo Yard -- Singleton
+		new Yard();
+
+		//Criando objeto do tipo Pocket -- Singleton
+		new Pocket();	
 
 		// Para limpar os borroes das lines e definar regras de renderizacao
 		graphSettings.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -64,10 +92,10 @@ class DrawingBoard extends JPanel{
 		GridLines(graphSettings);
 
 		//Chama o metodo graphPocket da class Pocket para criar os triangulos centrais(casas finais)
-		pocket.graphPocket(graphSettings);
+		Pocket.getInstance().graphPocket(graphSettings);
 
 		//Chama o metodo graphYard da Yard para criar os retangulos
-		yard.graphYard(graphSettings);
+		Yard.getInstance().graphYard(graphSettings);
 
 		//Chamando o metodo Shelter que ira desenhar as casas de abrigo conforme as coordenadas passadas
 		Shelter(graphSettings, 240, 40);
@@ -139,7 +167,7 @@ class DrawingBoard extends JPanel{
 
 	}
 
-	public void paintPino(int CasaCorPino, Color cor, int numeroPino, House[] CaminhoColoridoPino){
+	public void paintPino(int CasaCorPino, Color cor, int numeroPino){
 		Ellipse2D pin = new Ellipse2D.Double();
 		if(CasaCorPino == 0 ){
 			if(cor == Color.green){
@@ -253,11 +281,62 @@ class DrawingBoard extends JPanel{
 		}
 		else{
 			graphSettings.setPaint(cor);
-			pin.setFrame(new Rectangle(CaminhoColoridoPino[CasaCorPino-1].getline() + 5, CaminhoColoridoPino[CasaCorPino-1].getcolumn() + 5, 30, 30));
+			if(cor == Color.red){
+				pin.setFrame(new Rectangle(Path.getInstance().getRed()[CasaCorPino-1].getline() + 5, Path.getInstance().getRed()[CasaCorPino-1].getcolumn() + 5, 30, 30));
+			}
+
+			else if(cor == Color.blue){
+				pin.setFrame(new Rectangle(Path.getInstance().getBlue()[CasaCorPino-1].getline() + 5, Path.getInstance().getBlue()[CasaCorPino-1].getcolumn() + 5, 30, 30));
+			}
+
+			else if(cor == Color.yellow){
+				pin.setFrame(new Rectangle(Path.getInstance().getYellow()[CasaCorPino-1].getline() + 5, Path.getInstance().getYellow()[CasaCorPino-1].getcolumn() + 5, 30, 30));
+			}
+
+			else{// cor == verde
+				pin.setFrame(new Rectangle(Path.getInstance().getGreen()[CasaCorPino-1].getline() + 5, Path.getInstance().getGreen()[CasaCorPino-1].getcolumn() + 5, 30, 30));
+			}
 			graphSettings.fill(pin);
 			graphSettings.setColor(Color.black);
 			graphSettings.draw(pin);
 		}
 
+	}
+
+	@Override
+	public void update(int nCasa, Color Cor, int nPino ) {
+		//Variavel local para manipular os dados recibos pela notify -- Observer
+		movimento.PinoEstruturado pPino = new movimento.PinoEstruturado();
+
+
+		if(Cor == null){ //Descartando os pinos inicializados com configuracao default
+			pPino.casaSet(nCasa);
+			pPino.setColor(Cor);
+			pPino.setNumero(nPino);
+		}
+
+		else{
+			if(Pinos.size() == 0 ){//Se arraylist Pinos estiver vazia
+				pPino.casaSet(nCasa);
+				pPino.setColor(Cor);
+				pPino.setNumero(nPino);
+
+				this.Pinos.add(pPino);
+			}
+
+			else{//Se arraylist Pinos conter pelo menos um elemento
+				for(int i = 0; i < Pinos.size(); i++){
+					if(Pinos.get(i).getColor() == Cor && Pinos.get(i).getNumero() == nPino){//Busca se o elemento já existe na lista
+						Pinos.get(i).casaSet(nCasa);//Se existir muda só a casa dele
+					}
+				}
+				//Se não existir cria e adiciona no arraylist Pinos
+				pPino.casaSet(nCasa);
+				pPino.setColor(Cor);
+				pPino.setNumero(nPino);
+
+				this.Pinos.add(pPino);
+			}
+		}
 	}
 }
