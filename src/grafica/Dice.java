@@ -32,6 +32,7 @@ public class Dice extends JPanel{
 
 		Random Rand = new Random();
 		this.nRand = Rand.nextInt(6)+1;
+		
 	}
 
 
@@ -41,12 +42,15 @@ public class Dice extends JPanel{
 		BufferedImage img = null;
 
 		switch(nRand){
+		
 		case 1:
 			try {
 				img = ImageIO.read(new File("src/ImageDice/Dado1F.png"));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				System.out.println("Erro: Image Dado1F not found!");
+				System.exit(0);
+				
 			}
 			break;
 
@@ -54,8 +58,10 @@ public class Dice extends JPanel{
 			try {
 				img = ImageIO.read(new File("src/ImageDice/Dado2F.png"));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				System.out.println("Erro: Image Dado2F not found!");
+				System.exit(0);
+				
 			}
 			break;
 
@@ -63,8 +69,10 @@ public class Dice extends JPanel{
 			try {
 				img = ImageIO.read(new File("src/ImageDice/Dado3F.png"));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				System.out.println("Erro: Image Dado3F not found!");
+				System.exit(0);
+				
 			}
 			break;
 
@@ -72,32 +80,39 @@ public class Dice extends JPanel{
 			try {
 				img = ImageIO.read(new File("src/ImageDice/Dado4F.png"));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				System.out.println("Erro: Image Dado4F not found!");
+				System.exit(0);
+				
 			}
 			break;
 
 		case 5:
 			try {
+				
 				img = ImageIO.read(new File("src/ImageDice/Dado5F.png"));
+				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				System.out.println("Erro: Image Dado5F not found!");
+				System.exit(0);
+				;
 			}
 			break;
 
 		case 6:
 			try {
+				
 				img = ImageIO.read(new File("src/ImageDice/Dado6F.png"));
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				System.out.println("Erro: Image Dado6F not found!");
+				System.exit(0);
+				
 			}
 			break;
 		}
-
-
 
 		return new ImageIcon(img);
 	}
