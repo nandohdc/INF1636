@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 public class PinoEstruturado implements Subject {	
-	
+
 	// Creates an ArrayList to hold all observers
 	private static ArrayList<Observer> observers = new ArrayList<Observer>();
-	
+
 	//Criar as variaveis que a gente vai usar para fazer o update
 	int casa;
 	int numero;
@@ -17,18 +17,6 @@ public class PinoEstruturado implements Subject {
 		this.casa = 0;
 		this.numero = 0;
 		this.cor = null;
-	}
-
-	public PinoEstruturado(int ca, int num, Color co){
-		this.casa = ca;
-		this.numero = num;
-		this.cor = co;
-		
-		//System.out.println("Casa: " + ca);
-		//System.out.println( "Numero do Pino: " + num);
-		
-		//Notify all the observers
-		notifyObserver();
 	}
 
 	public Color getColor(){
@@ -42,7 +30,7 @@ public class PinoEstruturado implements Subject {
 	public int getNumero(){
 		return this.numero;
 	}
-	
+
 	public void casaSet(int nCasa){
 		this.casa = nCasa;
 	}
@@ -55,43 +43,46 @@ public class PinoEstruturado implements Subject {
 	public void setColor(Color color){
 		this.cor = color;
 	}
-	
+
 	public void setNumero(int nPino){
 		this.numero = nPino;
 	}
-	
+
 	@Override
 	public void register(movimento.Observer newObserver) {
 		// Adiciona um novo Observer a lista de Observers
+
 		System.out.println("Observador Registrado!");
+
 		observers.add(newObserver);
-		
+
+
 	}
 
 	@Override
 	public void unregister(movimento.Observer deleteObserver) {
 		//Get the index of the observer that is going to be deleted.
-		
+
 		int ObserverIndex = observers.indexOf(deleteObserver);
-		
+
 		//Print out message
 		System.out.println("Observer " + (ObserverIndex+1) + "deleted");
-		
+
 		//Removes observer from the array list
-		
+
 		observers.remove(ObserverIndex);
-		
+
 	}
 
 	@Override
 	public void notifyObserver() {
 		//Cycle through all observers and notifies them of changes
-		
+
 		//System.out.println("Observer size: " + observers.size());
-		
+
 		for(int i = 0; i < observers.size(); i++){
 			//System.out.println("Entrei no notify -- Update");
-			
+
 			Observer observer = (Observer) observers.get(i);
 			observer.update(this.casa, this.cor, this.numero);
 		}

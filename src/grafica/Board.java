@@ -2,10 +2,12 @@ package grafica;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import movimento.ConjuntoDePinos;
@@ -18,47 +20,41 @@ public class Board extends JFrame{
 	// Variaveis de Classe
 	JButton RollDice;
 	JButton Save;
+	JLabel ScoreRed;
+	JLabel ScoreBlue;
+	JLabel ScoreYellow;
+	JLabel ScoreGreen;
 	MouseHandler mHandler;
 	ActionHandler aHandler;
 	JLabel lImageIconDado;
 	public static int round;
 	JFileChooser explorer = new JFileChooser();
-	
-	private static Board bdfirstInstance = null;
-	
-	public static Board getInstancce(){
-		if(bdfirstInstance == null){
+	DrawingBoard GUI;
 
-			bdfirstInstance = new Board();
-		}
-
-		return bdfirstInstance;
-	}
-	
-	Board(){
-		
+	//Construtor Default é usado quando iniciamos um jogo novo
+	public Board(){
+		//Instanciando o Objeto que vai ser Observado
 		PinoEstruturado pPino = new PinoEstruturado();
-		
+
 		//Criando Objeto do tipo DrawingBoard--  Singleton
-		//GUI = 
-		new DrawingBoard(pPino);
-		
+		GUI = new DrawingBoard(pPino);
+
 		//Criando objeto do tipo ConjuntoDePinos -- Singleton
 		new ConjuntoDePinos();
-		
+
 		//Criando objeto do tipo Dice -- Singleton
 		new Dice();
-		
+
 		//Criando objeto do tipo Path -- Singleton
 		new Path();
-		
+
 		//Criando Objeto do tipo FacadeMovimento --  Singleton
 		new FacadeMovimento();
-		
+
 		mHandler = new MouseHandler();
 		aHandler = new ActionHandler();
 		round = 0;
-		
+
 		//Definindo configuracoes defaults para o JFrame
 		this.setSize(768,640);
 		this.setTitle("LUDO & FRIENDS");
@@ -84,27 +80,39 @@ public class Board extends JFrame{
 
 		//Criando o botao(RollDice)
 		RollDice = new JButton("Roll Dice");
-		
+
 		//Criando o botao (Save)
 		Save = new JButton("Save");
 		
+		//Criando o Label do score
+		ScoreRed = new JLabel("<html><font color='red' size =+1>Red</font>:</html>" + 1);
+		ScoreBlue = new JLabel("<html><font color='blue' size =+1>Blue</font>:</html> " + 1);
+		ScoreYellow = new JLabel("<html><font color='yellow' size =+1>Yellow</font>:</html>" + 1);
+		ScoreGreen = new JLabel("<html><font color='green' size =+1>Green</font>:</html>" + 1);
+
 		//Adicionando ActionListner ao botao RollDice
 		RollDice.addActionListener(aHandler);
-		
+
 		//Adicionando ActionListner ao botao Save
 		Save.addActionListener(aHandler);
-		
+
 		//Adicionando o botao RollDice ao box
 		thebox.add(RollDice);
-		
+
 		//Adicionando o box do Save ao box
 		thebox.add(Save);
 		
+		//Adicionando os Labels do score ao box
+		thebox.add(ScoreRed);
+		thebox.add(ScoreBlue);
+		thebox.add(ScoreYellow);
+		thebox.add(ScoreGreen);
+
 		//Adicionando o box do dado para o panel
 		this.add(thebox, BorderLayout.EAST);
-		
+
 		//Fazendo com que a area desenhada tome conta da parte central do frame
-		this.add(DrawingBoard.getInstancce() ,BorderLayout.CENTER);
+		this.add(GUI ,BorderLayout.CENTER);
 
 		//Setting a posicao de centralizacao
 		this.setLocation(xPos,yPos);
@@ -116,42 +124,149 @@ public class Board extends JFrame{
 
 	}
 
+	//Esse Construtor é para o caso de carregar um jogo salvo
+	//Irá receber como parametros as informacoes necessárias
+	//Para colocar os pinos nos lugares de acordo com Txt do Jogo Salvo
+	public Board(ArrayList<Integer> ListOfAllLoadInfo){
+		round = ListOfAllLoadInfo.get(0);
+		ListOfAllLoadInfo.remove(0);
 
-	public class ActionHandler implements ActionListener{
+		System.out.println("List: " + ListOfAllLoadInfo.get(0));
+
+		//Instanciando o Objeto que vai ser Observado
+		PinoEstruturado pPino = new PinoEstruturado();
+
+		//Criando Objeto do tipo DrawingBoard--  Singleton
+		GUI = new DrawingBoard(pPino);
+
+		//Criando objeto do tipo ConjuntoDePinos -- Singleton
+		new ConjuntoDePinos();
+
+		ConjuntoDePinos.getInstancce().LoadGameConjuntoDePinos(ListOfAllLoadInfo);
+
+		//Criando objeto do tipo Dice -- Singleton
+		new Dice();
+
+		//Criando objeto do tipo Path -- Singleton
+		new Path();
+
+		//Criando Objeto do tipo FacadeMovimento --  Singleton
+		new FacadeMovimento();
+
+		mHandler = new MouseHandler();
+		aHandler = new ActionHandler();
+
+
+		//Definindo configuracoes defaults para o JFrame
+		this.setSize(768,640);
+		this.setTitle("LUDO & FRIENDS");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		//Centralizando a Janela com Tela do PC
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Dimension dim = tk.getScreenSize();
+		int xPos = (dim.width/2) - (this.getWidth()/2);
+		int yPos = (dim.height/2) - (this.getHeight()/2);
+
+		//Criando Box para dividir o Frame em partes: Tabuleiro e Dado.
+		Box thebox = Box.createVerticalBox();
+
+		//Criando um Label para adicionar a img e chamando a funcao que cria as imagens do dado
+		lImageIconDado = new JLabel();
+
+		//Atribuindo a um container a referencia da img
+		Container cDice = lImageIconDado;
+
+		//Adicionando a image ao box
+		thebox.add(cDice);
+
+		//Criando o botao(RollDice)
+		RollDice = new JButton("Roll Dice");
+
+		//Criando o botao (Save)
+		Save = new JButton("Save");
+		
+		//Criando os Labels do score
+		ScoreRed = new JLabel("<html><font color='red' size =+1>Red</font>:</html>" + 1);
+		ScoreBlue = new JLabel("<html><font color='blue' size =+1>Blue</font>:</html> " + 1);
+		ScoreYellow = new JLabel("<html><font color='yellow' size =+1>Yellow</font>:</html>" + 1);
+		ScoreGreen = new JLabel("<html><font color='green' size =+1>Green</font>:</html>" + 1);
+		
+		//Adicionando ActionListner ao botao RollDice
+		RollDice.addActionListener(aHandler);
+
+		//Adicionando ActionListner ao botao Save
+		Save.addActionListener(aHandler);
+		
+		//Adicionando o botao RollDice ao box
+		thebox.add(RollDice);
+
+		//Adicionando o button do Save ao box
+		thebox.add(Save);
+		
+		//Adicionando os Labels do score ao box
+		thebox.add(ScoreRed);
+		thebox.add(ScoreBlue);
+		thebox.add(ScoreYellow);
+		thebox.add(ScoreGreen);
+		
+		//Adicionando o box do dado para o panel
+		this.add(thebox, BorderLayout.EAST);
+
+		//Fazendo com que a area desenhada tome conta da parte central do frame
+		this.add(GUI ,BorderLayout.CENTER);
+
+		//Setting a posicao de centralizacao
+		this.setLocation(xPos,yPos);
+		this.setResizable(false);
+		this.setLocationRelativeTo(null);
+
+		//Mostrando a frame
+		this.setVisible(true);
+	}
+
+	private class ActionHandler implements ActionListener{
 
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == RollDice){
+				//Cria uma referencia para guardar a ImageIcon do Dado que será retorna pela MakingImageDice
 				ImageIcon DadoImageIcon = null;
-				
+
 				if ( round == 4){
 					round = 0;
 				}
-				
+
 				switch(round){
 				case 0:
+					//Set background color of Button RollDice as red -- indicating that is Red Round
 					RollDice.setBackground(Color.red);
 					break;
-					
+
 				case 1:
+					//Set background color of Button RollDice as blue -- indicating that is blue Round
 					RollDice.setBackground(Color.blue);
 					break;
-					
+
 				case 2:
+					//Set background color of Button RollDice as yellow -- indicating that is yellow Round
 					RollDice.setBackground(Color.yellow);
 					break;
-					
+
 				case 3:
+					//Set background color of Button RollDice as green -- indicating that is green Round
 					RollDice.setBackground(Color.green);
 					break;
-			}
-				
+				}
+
 				RollDice.setOpaque(true);
 
 				RollDice.setEnabled(false);
 
+				//Manda o dado gerar um número aleatório de novo
 				FacadeMovimento.getInstance().RollDice();
 
-				DrawingBoard.getInstancce().addMouseListener(mHandler);
+				//Chama o MouseListener para tratar o evento click
+				GUI.addMouseListener(mHandler);
 
 				//Montando a Imagem com o numero aletatorio gerado passado com parametro
 				DadoImageIcon = Dice.getInstance().MakingImageDice(Dice.getInstance().getRandNum());
@@ -165,22 +280,24 @@ public class Board extends JFrame{
 				//repaint();
 
 			}
-			
+
 			else if(e.getSource() == Save){
-				int value = explorer.showOpenDialog(Save);
-				if (value == JFileChooser.APPROVE_OPTION) {
-					File file = explorer.getSelectedFile();
-					// load from file
-					System.out.println("Save as file: " + file.getAbsolutePath());
-				}
-				
+
+				//PrintWriter is used to write characters to a file in this situation
+				PrintWriter SaveOutput = createFile("src/SaveFileTxT/LudoSavedGame.txt");
+
+				//Calling method that will save all game information
+				SavingGame(SaveOutput);
+
+				//Closes the connection to the PrintWriter
+				SaveOutput.close();
 			}
 
 		}
 
 	}
 
-	public class MouseHandler implements MouseListener{
+	private class MouseHandler implements MouseListener{
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -191,35 +308,36 @@ public class Board extends JFrame{
 				if ( round == 4){
 					round = 0;
 				}
-				
+
 				switch(round){
 				case 0:
 					RollDice.setBackground(Color.red);
 					break;
-					
+
 				case 1:
 					RollDice.setBackground(Color.blue);
 					break;
-					
+
 				case 2:
 					RollDice.setBackground(Color.yellow);
 					break;
-					
+
 				case 3:
 					RollDice.setBackground(Color.green);
 					break;
-			}
-				
+				}
+
 				RollDice.setOpaque(true);
-				
-				
-				
+
+
+
 				RollDice.setEnabled(true);
 				if(Dice.getInstance().getRandNum() == 20 || Dice.getInstance().getRandNum() == 10){
 					RollDice.setEnabled(false);
 				}
+
 			}
-			
+
 		}
 
 		@Override
@@ -246,6 +364,121 @@ public class Board extends JFrame{
 			//RollDice.setText(String.format("BOA SORTE!", e.getX(), e.getY()));
 		}
 
+	}
+
+	//Create the file and the PrintWriter that will write to the file
+	private PrintWriter createFile(String fileName){
+
+		try{//try n catch -- any error for trying to read from the file
+
+			//Creates a File Object that allows you to work with files on the hard drive
+
+			File SaveGame = new File(fileName);
+
+			//FileWriter is used to to write streams of characters to a file
+			//BufferedWriter gathers a bunch of characters and then writes
+			//them all at one time
+			//PrintWriter is used to write characters to the console file
+
+			PrintWriter infoToWrite = new PrintWriter(
+					new BufferedWriter(
+							new FileWriter(SaveGame)));
+
+			return infoToWrite;
+
+		}
+		//catch this when you call FileWriter
+
+		catch(IOException e){
+			System.out.println("An I/O Error Occurred");
+
+			//Closes the program
+			System.exit(0);
+		}
+
+		return null;
+	}
+
+	//Create a string with the ConjuntodePinos + nRound and write it to the file
+	private void SavingGame(PrintWriter SaveOutput){
+
+		//Create the string that contains the Round info
+		String RoundInfo = "Round:" + " ";
+		RoundInfo += Integer.toString(round);
+
+		//Writes the string on the file
+		SaveOutput.println(RoundInfo);
+
+		//Create the string that contains the ConjuntodePinos info
+		String PinsInfo = "Red:" + " ";
+		for(int i = 1; i < 5; i++){
+			//Gets the number of pin and transform to a string
+			PinsInfo += Integer.toString(ConjuntoDePinos.getInstancce().getRed(i).getNumero()) + " ";
+
+			if( i < 4){
+				//Gets the house of pin and transform to a string
+				PinsInfo += Integer.toString(ConjuntoDePinos.getInstancce().getRed(i).getCasa()) + " ";
+			}
+			else{
+				//Gets the house of pin and transform to a string
+				PinsInfo += Integer.toString(ConjuntoDePinos.getInstancce().getRed(i).getCasa());
+			}
+		}
+
+		//Writes the string on the file
+		SaveOutput.println(PinsInfo);
+
+		PinsInfo = "Blue:" + " ";
+		for(int i = 1; i < 5; i++){
+			//Gets the numeber of pin and transform to a string
+			PinsInfo += Integer.toString(ConjuntoDePinos.getInstancce().getBlue(i).getNumero()) + " ";
+
+			if(i < 4){
+				//Gets the house of pin and transform to a string
+				PinsInfo += Integer.toString(ConjuntoDePinos.getInstancce().getBlue(i).getCasa()) + " ";
+			}
+
+			else{
+				PinsInfo += Integer.toString(ConjuntoDePinos.getInstancce().getBlue(i).getCasa());	
+			}
+		}
+
+		//Writes the string on the file
+		SaveOutput.println(PinsInfo);
+
+		PinsInfo = "Yellow:" + " ";
+		for(int i = 1; i < 5; i++){
+			//Gets the number of pin and transform to a string
+			PinsInfo += Integer.toString(ConjuntoDePinos.getInstancce().getYellow(i).getNumero()) + " ";
+
+			if(i < 4){
+				//Gets the house of pin and transform to a string
+				PinsInfo += Integer.toString(ConjuntoDePinos.getInstancce().getYellow(i).getCasa()) + " ";
+			}
+			else{
+				PinsInfo += Integer.toString(ConjuntoDePinos.getInstancce().getYellow(i).getCasa());
+			}
+		}
+
+		//Writes the string on the file
+		SaveOutput.println(PinsInfo);
+
+		PinsInfo = "Green:" + " ";
+		for(int i = 1; i < 5; i++){
+			//Gets the number of pin and transform to a string
+			PinsInfo += Integer.toString(ConjuntoDePinos.getInstancce().getGreen(i).getNumero()) + " ";
+
+			if(i < 4){//Gets the house of pin and transform to a string
+				PinsInfo += Integer.toString(ConjuntoDePinos.getInstancce().getGreen(i).getCasa()) + " ";
+			}
+
+			else{
+				PinsInfo += Integer.toString(ConjuntoDePinos.getInstancce().getGreen(i).getCasa());
+			}
+		}
+
+		//Writes the string on the file
+		SaveOutput.println(PinsInfo);
 	}
 
 }

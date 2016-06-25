@@ -15,9 +15,6 @@ class DrawingBoard extends JPanel implements Observer{
 	//Variavel do Tipo Graphics2D para conseguir desenhar o tabuleiro
 	Graphics2D graphSettings;
 
-	//Variavel de class para Singleton
-	private static DrawingBoard dbfirstInstance = null;
-
 	//Static used as a counter
 	private static int ObserverIDTracker = 0;
 
@@ -25,17 +22,20 @@ class DrawingBoard extends JPanel implements Observer{
 	private int ObserverID;
 
 	//Will hold reference to the DrawingBoard object
+	@SuppressWarnings("unused")
 	private static Subject PinoEstruturado;
 
 	//Arraylist do tipo PinoEstruturado para guardar todas as alteracoes feitas no metodo update -- Observer
 	private ArrayList<movimento.PinoEstruturado> Pinos = new ArrayList<movimento.PinoEstruturado>();
 
+
 	public DrawingBoard(Subject PinoEstruturado){
+		//Configuracao do tamnanho do tabuleiro.
 		this.setSize(768,640);
-		
+
 		//Guardar a referencia para o DrawingBoard objeto
 		//Para assim a gente conseguir chamar em métodos
-		this.PinoEstruturado = PinoEstruturado;
+		DrawingBoard.PinoEstruturado = PinoEstruturado;
 
 		//Incrementando o contado statico
 		this.ObserverID = ++ObserverIDTracker;
@@ -46,16 +46,6 @@ class DrawingBoard extends JPanel implements Observer{
 		//Add o observer para a Arralist
 		PinoEstruturado.register(this);
 
-	}
-
-	//Singleton da Class -- DrawingBoard
-	public static DrawingBoard getInstancce(){
-		if(dbfirstInstance == null){
-
-			dbfirstInstance = new DrawingBoard(PinoEstruturado);
-		}
-
-		return dbfirstInstance;
 	}
 
 	@Override
@@ -69,7 +59,7 @@ class DrawingBoard extends JPanel implements Observer{
 
 			paintPino(Pinos.get(i).getCasa(),Pinos.get(i).getColor(), Pinos.get(i).getNumero());
 		}
-		
+
 		revalidate();
 		repaint();
 	}
@@ -308,35 +298,37 @@ class DrawingBoard extends JPanel implements Observer{
 		//Variavel local para manipular os dados recibos pela notify -- Observer
 		movimento.PinoEstruturado pPino = new movimento.PinoEstruturado();
 
-
-		if(Cor == null){ //Descartando os pinos inicializados com configuracao default
-			pPino.casaSet(nCasa);
-			pPino.setColor(Cor);
-			pPino.setNumero(nPino);
-		}
-
-		else{
-			if(Pinos.size() == 0 ){//Se arraylist Pinos estiver vazia
+		if(Cor != null){
+			if(this.Pinos.size() == 0 ){//Se arraylist Pinos estiver vazia
 				pPino.casaSet(nCasa);
 				pPino.setColor(Cor);
 				pPino.setNumero(nPino);
 
+				System.out.print("Casa: " + nCasa + " Numero: " + nPino + "\n");
 				this.Pinos.add(pPino);
 			}
 
 			else{//Se arraylist Pinos conter pelo menos um elemento
-				for(int i = 0; i < Pinos.size(); i++){
-					if(Pinos.get(i).getColor() == Cor && Pinos.get(i).getNumero() == nPino){//Busca se o elemento já existe na lista
-						Pinos.get(i).casaSet(nCasa);//Se existir muda só a casa dele
+				for(int i = 0; i < this.Pinos.size(); i++){
+					if(this.Pinos.get(i).getColor() == Cor && this.Pinos.get(i).getNumero() == nPino){//Busca se o elemento já existe na lista
+						this.Pinos.get(i).casaSet(nCasa);//Se existir muda só a casa dele
 					}
+
 				}
+
 				//Se não existir cria e adiciona no arraylist Pinos
 				pPino.casaSet(nCasa);
 				pPino.setColor(Cor);
 				pPino.setNumero(nPino);
-
+				System.out.println("TAMANHO: " + this.Pinos.size());
 				this.Pinos.add(pPino);
+
 			}
+		}
+		else{
+			pPino.casaSet(nCasa);
+			pPino.setColor(Cor);
+			pPino.setNumero(nPino);
 		}
 	}
 }

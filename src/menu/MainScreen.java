@@ -4,11 +4,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import java.io.*;
+import java.util.ArrayList;
 
 import javax.imageio.*;
 import javax.swing.*;
-
-import grafica.MainBoard;
+import grafica.Board;
 
 @SuppressWarnings("serial")
 public class MainScreen extends JFrame implements ActionListener{
@@ -18,7 +18,7 @@ public class MainScreen extends JFrame implements ActionListener{
 	JPanel central = new JPanel();
 	JFrame frame = new JFrame();
 	JFileChooser explorer = new JFileChooser();
-	
+
 	public static void main(String[] args) {
 		new MainScreen();
 	}
@@ -29,17 +29,73 @@ public class MainScreen extends JFrame implements ActionListener{
 		}
 		else if(e.getSource() == iniciar){
 			frame.setVisible(false); //Esconde a Tela Principal
-			MainBoard.main(null);// Chama a main do Principal.
+			new Board();// Chama o construtor DEFAULT da Board. -- Singleton
 		}
 
 		else if(e.getSource() == carregar){
-			int value = explorer.showOpenDialog(carregar);
-			if (value == JFileChooser.APPROVE_OPTION) {
-				File LoadFile = explorer.getSelectedFile();
-				// load from file
+			int i  = 0;
+			ArrayList<Integer> ListOfAllLoadInfo = new ArrayList<Integer>();
+			System.out.println("Info Written to File\n");
+
+			//Open a new connection to the file
+			File LoadGame = new File("src/SaveFileTxT/LudoSavedGame.txt");
+
+			try{
+				//FileReader reads character files
+				//BufferedReader reads as many characters as possible
+
+				BufferedReader getLoadGameInfo = new BufferedReader(
+						new FileReader(LoadGame));
+
+				//Reads a whole line from the file and saves it in a string
+				String LoadGameInfo = getLoadGameInfo.readLine();
+
+				//readLine returns null when the end of the file is reached
+				while(LoadGameInfo != null){
+					
+					//System.out.println(LoadGameInfo);
+
+					//Break lines into pieces
+					String[] indivGameData = LoadGameInfo.split(" ");
+
+					if(i == 0){
+						ListOfAllLoadInfo.add(Integer.parseInt(indivGameData[1]));
+						//System.out.println("Round: " + ListOfAllLoadInfo.get(i));
+						i++;
+
+					}
+
+					else{
+						for(int j = 1; j < 9; j++){
+							ListOfAllLoadInfo.add(Integer.parseInt(indivGameData[j]));
+							//System.out.println("Pino: " + ListOfAllLoadInfo.get(j));
+						}
+						i++;
+					}
+					
+					LoadGameInfo = getLoadGameInfo.readLine();
+
+					
+				}
+				frame.setVisible(false); //Esconde a Tela Principal
+				new Board(ListOfAllLoadInfo); // Chama o construtor da Board -- Singleton
+				getLoadGameInfo.close();
+
+			}
+
+			//Can be thrown by FileReader
+			catch(FileNotFoundException ex){
+				System.out.println("Coudn't Find the File");
+				System.exit(0);
+			}
+
+			catch(IOException ex){
+				System.out.println("Coudn't Find the File");
+				System.exit(0);
 			}
 		}
 	}
+
 
 	public MainScreen() {
 		super("LUDO & FRIENDS");
@@ -64,7 +120,7 @@ public class MainScreen extends JFrame implements ActionListener{
 		central.add(carregar);
 		central.add(sair);
 
-		
+
 		Container c = image;
 
 		frame.getContentPane().add(central);
@@ -79,17 +135,18 @@ public class MainScreen extends JFrame implements ActionListener{
 
 	}
 
-	// For the demo, the image is pretty simple but
-	// practice it could be anything, e.g. an intricate
-	// Java2D drawing or loaded from a file.
+	//Cria a Imagem de Background e retorna um Icon com Background
 	private ImageIcon makeImage() {
 
 		BufferedImage result = null;
 		try {
+
 			result = ImageIO.read(new File("src/ImageMenu/LudoGameFinal.jpg"));
+
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.out.println("Erro: Image Background not found!");
+			System.exit(0);
 		}
 
 		return new ImageIcon(result);
