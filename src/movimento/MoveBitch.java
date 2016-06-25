@@ -41,7 +41,6 @@ public class MoveBitch {
 	}
 
 	private PinoEstruturado CoordToPino(int cX, int cY){
-		//Path pPath = new Path();
 		PinoEstruturado PinoRetorno = null;
 		House aux = null;
 
@@ -1076,6 +1075,52 @@ public class MoveBitch {
 
 	}
 
+	private boolean TodoMundoUltimaCasa(){
+		int ContadorVermelho = 0;
+		int ContadorAzul = 0;
+		int ContadorAmarelo = 0;
+		int ContadorVerde = 0;
+		
+		for(int i = 1; i < 5; i++){
+			if(ConjuntoDePinos.getInstancce().getRed(i).casa == 58){
+				ContadorVermelho++;
+			}
+			
+			if(ConjuntoDePinos.getInstancce().getBlue(i).casa == 58){
+				ContadorAzul++;
+			}
+			
+			if(ConjuntoDePinos.getInstancce().getYellow(i).casa == 58){
+				ContadorAmarelo++;
+			}
+			
+			if(ConjuntoDePinos.getInstancce().getGreen(i).casa == 58){
+				ContadorVerde++;
+			}
+		}
+		
+		if(ContadorVermelho == 4){
+			return false;
+		}
+		
+		else if(ContadorAzul == 4){
+			return false;
+		}
+		
+		else if(ContadorAmarelo == 4){
+			return false;
+		}
+		
+		else if(ContadorVerde == 4){
+			return false;
+		}
+		
+		else{
+			return true;
+		}
+		
+	}
+	
 	private boolean CheckJogadaPossivel(PinoEstruturado mPino, int nDado){
 		int OContador = 0;
 
@@ -1118,5 +1163,6 @@ public class MoveBitch {
 
 		return true;
 	}
+	
 }
 
