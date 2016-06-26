@@ -4,7 +4,6 @@ public class House {
 	
 	private int line; // Coordenada linha da Casa
 	private int column; // Coordenada coluna da Casa
-	private int qtdPinos;//Qtd de Pinos presentes na Casa
 	
 	
 	public House(){// Inicializa as variaveis para evitar atribuicoes com lixo.
@@ -15,10 +14,6 @@ public class House {
 	public House(int x, int y){// Construtor Casa, atribui valores validos a casa - Caminho Possivel
 		this.line = x;
 		this.column = y;
-	}
-
-	public int getQtd(){ // Retorna o quantidade de Pinos presentes na casa.
-		return qtdPinos;
 	}
 
 	public int getline(){// Retorna a linha em que a casa esta posicionada.

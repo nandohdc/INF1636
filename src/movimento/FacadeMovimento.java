@@ -1,6 +1,7 @@
 package movimento;
 
 import grafica.Dice;
+import grafica.DrawingBoard;
 
 public class FacadeMovimento{
 	private int CoordinateX;
@@ -48,9 +49,14 @@ private static FacadeMovimento fmfirstInstance = null;
 		setCoordinateX(cX);
 		setCoordinateY(cY);
 		MoveBitch GetOutDaWay = new MoveBitch(cX, cY, dice.getRandNum());
-		System.out.printf("cX: %d ----- cY:%d\n",cX, cY);
 		
 		if(GetOutDaWay.JustDoIt() == true){
+			//Update os valores de Score
+			Score.getInstancce().updateScore();
+			//System.out.println("Red: " + Score.getInstancce().getScoreRed());
+			//System.out.println("Blue: " + Score.getInstancce().getScoreBlue());
+			//System.out.println("Yellow: " + Score.getInstancce().getScoreYellow());
+			//System.out.println("Green: " + Score.getInstancce().getScoreGreen());
 			return true;
 		}
 		
@@ -58,5 +64,9 @@ private static FacadeMovimento fmfirstInstance = null;
 			return false;
 		}
 
+	}
+	
+	public static void FacadeRegistraObserver(Subject PinoEstruturado){
+		DrawingBoard.getInstancce().addTabuleiro(PinoEstruturado);
 	}
 }

@@ -74,11 +74,10 @@ public class MainScreen extends JFrame implements ActionListener{
 					}
 					
 					LoadGameInfo = getLoadGameInfo.readLine();
-
 					
 				}
 				frame.setVisible(false); //Esconde a Tela Principal
-				new Board(ListOfAllLoadInfo); // Chama o construtor da Board -- Singleton
+				new Board(ListOfAllLoadInfo); //Chama o construtor da Board -- Singleton
 				getLoadGameInfo.close();
 
 			}

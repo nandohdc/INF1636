@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class PinoEstruturado implements Subject {	
 
 	// Creates an ArrayList to hold all observers
-	private static ArrayList<Observer> observers = new ArrayList<Observer>();
+	private static ArrayList<movimento.Observer> observers = new ArrayList<movimento.Observer>();
 
 	//Criar as variaveis que a gente vai usar para fazer o update
 	int casa;

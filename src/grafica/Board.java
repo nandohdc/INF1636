@@ -8,28 +8,23 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-
 import javax.swing.*;
 import movimento.ConjuntoDePinos;
 import movimento.FacadeMovimento;
 import movimento.Path;
 import movimento.PinoEstruturado;
+import movimento.Score;
 
 @SuppressWarnings("serial")
 public class Board extends JFrame{
 	// Variaveis de Classe
 	JButton RollDice;
 	JButton Save;
-	JLabel ScoreRed;
-	JLabel ScoreBlue;
-	JLabel ScoreYellow;
-	JLabel ScoreGreen;
 	MouseHandler mHandler;
 	ActionHandler aHandler;
 	JLabel lImageIconDado;
 	public static int round;
 	JFileChooser explorer = new JFileChooser();
-	DrawingBoard GUI;
 
 	//Construtor Default é usado quando iniciamos um jogo novo
 	public Board(){
@@ -37,8 +32,13 @@ public class Board extends JFrame{
 		PinoEstruturado pPino = new PinoEstruturado();
 
 		//Criando Objeto do tipo DrawingBoard--  Singleton
-		GUI = new DrawingBoard(pPino);
-
+		new DrawingBoard();
+		
+		//Criando Objeto do tipo FacadeMovimento --  Singleton
+		new FacadeMovimento();
+		
+		FacadeMovimento.FacadeRegistraObserver(pPino);
+		
 		//Criando objeto do tipo ConjuntoDePinos -- Singleton
 		new ConjuntoDePinos();
 
@@ -47,10 +47,10 @@ public class Board extends JFrame{
 
 		//Criando objeto do tipo Path -- Singleton
 		new Path();
-
-		//Criando Objeto do tipo FacadeMovimento --  Singleton
-		new FacadeMovimento();
-
+		
+		//Criando Objeto do Tipo Score -- Singleton
+		new Score();
+		
 		mHandler = new MouseHandler();
 		aHandler = new ActionHandler();
 		round = 0;
@@ -83,12 +83,20 @@ public class Board extends JFrame{
 
 		//Criando o botao (Save)
 		Save = new JButton("Save");
-		
+			
 		//Criando o Label do score
-		ScoreRed = new JLabel("<html><font color='red' size =+1>Red</font>:</html>" + 1);
-		ScoreBlue = new JLabel("<html><font color='blue' size =+1>Blue</font>:</html> " + 1);
-		ScoreYellow = new JLabel("<html><font color='yellow' size =+1>Yellow</font>:</html>" + 1);
-		ScoreGreen = new JLabel("<html><font color='green' size =+1>Green</font>:</html>" + 1);
+	/*	ScoreRed = new JLabel();
+		ScoreRed.setText("<html><font color='red' size =+1>Red</font>:</html>" + Integer.toString(Score.getInstancce().getScoreRed()));
+		System.out.println("Red: " + Score.getInstancce().getScoreRed());
+		System.out.println("Blue: " + Score.getInstancce().getScoreBlue());
+		System.out.println("Yellow: " + Score.getInstancce().getScoreYellow());
+		System.out.println("Green: " + Score.getInstancce().getScoreGreen());
+		ScoreBlue = new JLabel();
+		ScoreBlue.setText("<html><font color='blue' size =+1>Blue</font>:</html> " + Integer.toString(Score.getInstancce().getScoreBlue()));
+		ScoreYellow = new JLabel();
+		ScoreYellow.setText("<html><font color='yellow' size =+1>Yellow</font>:</html>" + Integer.toString(Score.getInstancce().getScoreYellow()));
+		ScoreGreen = new JLabel();
+		ScoreGreen.setText("<html><font color='green' size =+1>Green</font>:</html>" + Integer.toString(Score.getInstancce().getScoreGreen()));*/
 
 		//Adicionando ActionListner ao botao RollDice
 		RollDice.addActionListener(aHandler);
@@ -101,18 +109,12 @@ public class Board extends JFrame{
 
 		//Adicionando o box do Save ao box
 		thebox.add(Save);
-		
-		//Adicionando os Labels do score ao box
-		thebox.add(ScoreRed);
-		thebox.add(ScoreBlue);
-		thebox.add(ScoreYellow);
-		thebox.add(ScoreGreen);
 
 		//Adicionando o box do dado para o panel
 		this.add(thebox, BorderLayout.EAST);
 
 		//Fazendo com que a area desenhada tome conta da parte central do frame
-		this.add(GUI ,BorderLayout.CENTER);
+		this.add(DrawingBoard.getInstancce() ,BorderLayout.CENTER);
 
 		//Setting a posicao de centralizacao
 		this.setLocation(xPos,yPos);
@@ -137,7 +139,11 @@ public class Board extends JFrame{
 		PinoEstruturado pPino = new PinoEstruturado();
 
 		//Criando Objeto do tipo DrawingBoard--  Singleton
-		GUI = new DrawingBoard(pPino);
+		new DrawingBoard();
+		
+		new FacadeMovimento();
+		//Criando Objeto do tipo FacadeMovimento --  Singleton
+		FacadeMovimento.FacadeRegistraObserver(pPino);
 
 		//Criando objeto do tipo ConjuntoDePinos -- Singleton
 		new ConjuntoDePinos();
@@ -150,9 +156,9 @@ public class Board extends JFrame{
 		//Criando objeto do tipo Path -- Singleton
 		new Path();
 
-		//Criando Objeto do tipo FacadeMovimento --  Singleton
-		new FacadeMovimento();
-
+		//Criando Objeto do Tipo Score -- Singleton
+		new Score();
+		
 		mHandler = new MouseHandler();
 		aHandler = new ActionHandler();
 
@@ -187,10 +193,10 @@ public class Board extends JFrame{
 		Save = new JButton("Save");
 		
 		//Criando os Labels do score
-		ScoreRed = new JLabel("<html><font color='red' size =+1>Red</font>:</html>" + 1);
-		ScoreBlue = new JLabel("<html><font color='blue' size =+1>Blue</font>:</html> " + 1);
-		ScoreYellow = new JLabel("<html><font color='yellow' size =+1>Yellow</font>:</html>" + 1);
-		ScoreGreen = new JLabel("<html><font color='green' size =+1>Green</font>:</html>" + 1);
+		//ScoreRed = new JLabel("<html><font color='red' size =+1>Red</font>:</html>" + 1);
+		//ScoreBlue = new JLabel("<html><font color='blue' size =+1>Blue</font>:</html> " + 1);
+		//ScoreYellow = new JLabel("<html><font color='yellow' size =+1>Yellow</font>:</html>" + 1);
+		//ScoreGreen = new JLabel("<html><font color='green' size =+1>Green</font>:</html>" + 1);
 		
 		//Adicionando ActionListner ao botao RollDice
 		RollDice.addActionListener(aHandler);
@@ -204,17 +210,11 @@ public class Board extends JFrame{
 		//Adicionando o button do Save ao box
 		thebox.add(Save);
 		
-		//Adicionando os Labels do score ao box
-		thebox.add(ScoreRed);
-		thebox.add(ScoreBlue);
-		thebox.add(ScoreYellow);
-		thebox.add(ScoreGreen);
-		
 		//Adicionando o box do dado para o panel
 		this.add(thebox, BorderLayout.EAST);
 
 		//Fazendo com que a area desenhada tome conta da parte central do frame
-		this.add(GUI ,BorderLayout.CENTER);
+		this.add(DrawingBoard.getInstancce() ,BorderLayout.CENTER);
 
 		//Setting a posicao de centralizacao
 		this.setLocation(xPos,yPos);
@@ -266,7 +266,7 @@ public class Board extends JFrame{
 				FacadeMovimento.getInstance().RollDice();
 
 				//Chama o MouseListener para tratar o evento click
-				GUI.addMouseListener(mHandler);
+				DrawingBoard.getInstancce().addMouseListener(mHandler);
 
 				//Montando a Imagem com o numero aletatorio gerado passado com parametro
 				DadoImageIcon = Dice.getInstance().MakingImageDice(Dice.getInstance().getRandNum());

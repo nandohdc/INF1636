@@ -31,7 +31,7 @@ public class Dice extends JPanel{
 	public void generatingRandomNumberDice(){
 
 		Random Rand = new Random();
-		this.nRand = Rand.nextInt(6)+1;
+		this.nRand = 2;//Rand.nextInt(6)+1;
 		
 	}
 
