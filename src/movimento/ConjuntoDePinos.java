@@ -8,10 +8,11 @@ public class ConjuntoDePinos {
 	PinoEstruturado[] RedPino = new PinoEstruturado[4];
 	PinoEstruturado[] BluePino = new PinoEstruturado[4];
 	PinoEstruturado[] YellowPino = new PinoEstruturado[4];
-	public static int verde6;
-	public static int vermelho6;
-	public static int azul6;
-	public static int amarelo6;
+	
+	int verde6;
+	int vermelho6;
+	int azul6;
+	int amarelo6;
 
 	private static ConjuntoDePinos cpfirstInstance = null;
 
@@ -44,32 +45,32 @@ public class ConjuntoDePinos {
 		for(int i = 1; i < 5; i++){
 			if( i == 1 ){
 
-				this.RedPino[i-1].setNumero(i-1);
+				this.RedPino[i-1].setNumero(i);
 				this.RedPino[i-1].setColor(Color.red);
 				this.RedPino[i-1].setCasa(1);
-				this.BluePino[i-1].setNumero(i-1);
+				this.BluePino[i-1].setNumero(i);
 				this.BluePino[i-1].setColor(Color.blue);
 				this.BluePino[i-1].setCasa(1);
-				this.YellowPino[i-1].setNumero(i-1);
+				this.YellowPino[i-1].setNumero(i);
 				this.YellowPino[i-1].setColor(Color.yellow);
 				this.YellowPino[i-1].setCasa(1);
-				this.GreenPino[i-1].setNumero(i-1);
+				this.GreenPino[i-1].setNumero(i);
 				this.GreenPino[i-1].setColor(Color.green);
 				this.GreenPino[i-1].setCasa(1);
 
 			}
 
 			else{
-				this.RedPino[i-1].setNumero(i-1);
+				this.RedPino[i-1].setNumero(i);
 				this.RedPino[i-1].setColor(Color.red);
 				this.RedPino[i-1].setCasa(0);
-				this.BluePino[i-1].setNumero(i-1);
+				this.BluePino[i-1].setNumero(i);
 				this.BluePino[i-1].setColor(Color.blue);
 				this.BluePino[i-1].setCasa(0);
-				this.YellowPino[i-1].setNumero(i-1);
+				this.YellowPino[i-1].setNumero(i);
 				this.YellowPino[i-1].setColor(Color.yellow);
 				this.YellowPino[i-1].setCasa(0);
-				this.GreenPino[i-1].setNumero(i-1);
+				this.GreenPino[i-1].setNumero(i);
 				this.GreenPino[i-1].setColor(Color.green);
 				this.GreenPino[i-1].setCasa(0);
 			}
@@ -100,7 +101,6 @@ public class ConjuntoDePinos {
 	
 	public void LoadGameConjuntoDePinos(ArrayList<Integer> ListOfAllLoadInfo){
 
-		//System.out.println("List: " + ListOfAllLoadInfo.size());
 		this.RedPino[0].setNumero(ListOfAllLoadInfo.get(0));
 		this.RedPino[0].setColor(Color.red);
 		this.RedPino[0].setCasa(ListOfAllLoadInfo.get(1));
