@@ -1,3 +1,9 @@
+//INF1636 - Programação orientada a objetos - LUDO GAME
+//Professor: Ivan Matias
+//Turma: 3WA
+//Nome: Fernando Homem da Costa  - 1211971
+//		Mateus Ribeiro de Castro - 1213068
+
 package menu;
 
 import java.awt.*;
