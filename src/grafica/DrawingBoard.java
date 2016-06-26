@@ -18,10 +18,6 @@ public class DrawingBoard extends JPanel implements Observer{
 	//Used to track the observer
 	private int ObserverID;
 
-	//Will hold reference to the DrawingBoard object
-	@SuppressWarnings("unused")
-	private static Subject PinoEstruturado;
-
 	//Arraylist do tipo PinoEstruturado para guardar todas as alteracoes feitas no metodo update -- Observer
 	private ArrayList<Integer> RedPaintPino = new ArrayList<Integer>();
 	private ArrayList<Integer> BluePaintPino = new ArrayList<Integer>();
@@ -39,7 +35,7 @@ public class DrawingBoard extends JPanel implements Observer{
 
 		return dbfirstInstance;
 	}
-	
+
 	public DrawingBoard(){
 		//Configuracao do tamnanho do tabuleiro.
 		this.setSize(768,640);
@@ -75,7 +71,9 @@ public class DrawingBoard extends JPanel implements Observer{
 				paintPino(GreenPaintPino.get(i),Color.green, GreenPaintPino.get(i+1));
 			}
 		}
-
+		if(RedPaintPino.size() != 0 && BluePaintPino.size() != 0 && YellowPaintPino.size() != 0  && GreenPaintPino.size() != 0 ){
+			PaintBarreira(RedPaintPino,BluePaintPino,YellowPaintPino,GreenPaintPino);
+		}
 		revalidate();
 		repaint();
 	}
@@ -333,12 +331,216 @@ public class DrawingBoard extends JPanel implements Observer{
 
 	}
 
+
+	private void PaintBarreira(ArrayList<Integer>RedPaintPino, ArrayList<Integer>BluePaintPino, ArrayList<Integer>YellowPaintPino, ArrayList<Integer>GreenPaintPino){
+		//Criando pin que ira simbolizar a barreira
+		Ellipse2D barrier = new Ellipse2D.Double();
+
+		//Settando a cor do simbolo da barreira como preto
+		graphSettings.setPaint(Color.black);
+
+		//Cor Vermelha
+		if (RedPaintPino.get(1) == RedPaintPino.get(3)){
+			if(RedPaintPino.get(1) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getRed()[RedPaintPino.get(1)-1].getline() + 10, Path.getInstance().getRed()[RedPaintPino.get(1)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		if (RedPaintPino.get(1) == RedPaintPino.get(5)){
+			if(RedPaintPino.get(1) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getRed()[RedPaintPino.get(1)-1].getline() + 10, Path.getInstance().getRed()[RedPaintPino.get(1)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		if (RedPaintPino.get(1) == RedPaintPino.get(7)){
+			if(RedPaintPino.get(1) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getRed()[RedPaintPino.get(1)-1].getline() + 10, Path.getInstance().getRed()[RedPaintPino.get(1)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		if (RedPaintPino.get(3) == RedPaintPino.get(5)){
+			if(RedPaintPino.get(3) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getRed()[RedPaintPino.get(3)-1].getline() + 10, Path.getInstance().getRed()[RedPaintPino.get(3)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		if (RedPaintPino.get(3) == RedPaintPino.get(7)){
+			if(RedPaintPino.get(3) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getRed()[RedPaintPino.get(3)-1].getline() + 10, Path.getInstance().getRed()[RedPaintPino.get(3)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+		if (RedPaintPino.get(5) == RedPaintPino.get(7)){
+			if(RedPaintPino.get(5) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getRed()[RedPaintPino.get(5)-1].getline() + 10, Path.getInstance().getRed()[RedPaintPino.get(5)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+
+		//Cor Azul
+		if (BluePaintPino.get(1) == BluePaintPino.get(3)){
+			if(BluePaintPino.get(1) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getBlue()[BluePaintPino.get(1)-1].getline() + 10, Path.getInstance().getBlue()[BluePaintPino.get(1)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		if (BluePaintPino.get(1) == BluePaintPino.get(5)){
+			if(BluePaintPino.get(1) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getBlue()[BluePaintPino.get(1)-1].getline() + 10, Path.getInstance().getBlue()[BluePaintPino.get(1)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		if (BluePaintPino.get(1) == BluePaintPino.get(7)){
+			if(BluePaintPino.get(1) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getBlue()[BluePaintPino.get(1)-1].getline() + 10, Path.getInstance().getBlue()[BluePaintPino.get(1)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		if (BluePaintPino.get(3) == BluePaintPino.get(5)){
+			if(BluePaintPino.get(3) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getBlue()[BluePaintPino.get(3)-1].getline() + 10, Path.getInstance().getBlue()[BluePaintPino.get(3)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		if (BluePaintPino.get(3) == BluePaintPino.get(7)){
+			if(BluePaintPino.get(3) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getBlue()[BluePaintPino.get(3)-1].getline() + 10, Path.getInstance().getBlue()[BluePaintPino.get(3)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+		if (BluePaintPino.get(5) == BluePaintPino.get(7)){
+			if(BluePaintPino.get(5) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getBlue()[BluePaintPino.get(5)-1].getline() + 10, Path.getInstance().getBlue()[BluePaintPino.get(5)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		//Cor Amarelo
+		if (YellowPaintPino.get(1) == YellowPaintPino.get(3)){
+			if(YellowPaintPino.get(1) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getYellow()[YellowPaintPino.get(1)-1].getline() + 10, Path.getInstance().getYellow()[YellowPaintPino.get(1)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		if (YellowPaintPino.get(1) == YellowPaintPino.get(5)){
+			if(YellowPaintPino.get(1) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getYellow()[YellowPaintPino.get(1)-1].getline() + 10, Path.getInstance().getYellow()[YellowPaintPino.get(1)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		if (YellowPaintPino.get(1) == YellowPaintPino.get(7)){
+			if(YellowPaintPino.get(1) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getYellow()[YellowPaintPino.get(1)-1].getline() + 10, Path.getInstance().getYellow()[YellowPaintPino.get(1)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		if (YellowPaintPino.get(3) == YellowPaintPino.get(5)){
+			if(YellowPaintPino.get(3) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getYellow()[YellowPaintPino.get(3)-1].getline() + 10, Path.getInstance().getYellow()[YellowPaintPino.get(3)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		if (YellowPaintPino.get(3) == YellowPaintPino.get(7)){
+			if(YellowPaintPino.get(3) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getYellow()[YellowPaintPino.get(3)-1].getline() + 10, Path.getInstance().getYellow()[YellowPaintPino.get(3)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+		if (YellowPaintPino.get(5) == YellowPaintPino.get(7)){
+			if(YellowPaintPino.get(5) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getYellow()[YellowPaintPino.get(5)-1].getline() + 10, Path.getInstance().getYellow()[YellowPaintPino.get(5)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		//Cor Verde
+		if (GreenPaintPino.get(1) == GreenPaintPino.get(3)){
+			if(GreenPaintPino.get(1) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getGreen()[GreenPaintPino.get(1)-1].getline() + 10, Path.getInstance().getGreen()[GreenPaintPino.get(1)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		if (GreenPaintPino.get(1) == GreenPaintPino.get(5)){
+			if(GreenPaintPino.get(1) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getGreen()[GreenPaintPino.get(1)-1].getline() + 10, Path.getInstance().getGreen()[GreenPaintPino.get(1)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		if (GreenPaintPino.get(1) == GreenPaintPino.get(7)){
+			if(GreenPaintPino.get(1) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getGreen()[GreenPaintPino.get(1)-1].getline() + 10, Path.getInstance().getGreen()[GreenPaintPino.get(1)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		if (GreenPaintPino.get(3) == GreenPaintPino.get(5)){
+			if(GreenPaintPino.get(3) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getGreen()[GreenPaintPino.get(3)-1].getline() + 10, Path.getInstance().getGreen()[GreenPaintPino.get(3)-1].getcolumn() + 10, 20, 20));;
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+		if (GreenPaintPino.get(3) == GreenPaintPino.get(7)){
+			if(GreenPaintPino.get(3) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getGreen()[GreenPaintPino.get(3)-1].getline() + 10, Path.getInstance().getGreen()[GreenPaintPino.get(3)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+		if (GreenPaintPino.get(5) == GreenPaintPino.get(7)){
+			if(GreenPaintPino.get(5) != 0){
+				barrier.setFrame(new Rectangle(Path.getInstance().getGreen()[GreenPaintPino.get(5)-1].getline() + 10, Path.getInstance().getGreen()[GreenPaintPino.get(5)-1].getcolumn() + 10, 20, 20));
+				graphSettings.setColor(Color.black);
+				graphSettings.draw(barrier);
+			}
+		}
+
+
+	}
+
 	@Override
 	public void update(int nCasa, Color Cor, int nPino ) {
 
 		if(Cor == Color.red){
 			if(RedPaintPino.size() < 8 ){
-				//System.out.print("Numero: " + nPino + "Casa: " + nCasa + "\n");
+				//System.out.print("RED ----- "+"Numero: " + nPino + "Casa: " + nCasa + "\n");
 				this.RedPaintPino.add(nPino);
 				this.RedPaintPino.add(nCasa);
 			}
@@ -347,6 +549,7 @@ public class DrawingBoard extends JPanel implements Observer{
 					if(i%2 == 0){
 						if(RedPaintPino.get(i) == nPino){//Busca se o elemento já existe na lista
 							RedPaintPino.set(i+1, nCasa);//Se existir muda só a casa dele
+							//System.out.print("RED ----- "+"Numero: " + nPino + "Casa: " + nCasa + "\n");
 						}
 					}
 				}
@@ -355,7 +558,7 @@ public class DrawingBoard extends JPanel implements Observer{
 
 		else if(Cor == Color.blue){
 			if(BluePaintPino.size() < 8 ){
-				//System.out.print("Numero: " + nPino + "Casa: " + nCasa + "\n");
+				//System.out.print("Blue ----- "+"Numero: " + nPino + "Casa: " + nCasa + "\n");
 				this.BluePaintPino.add(nPino);
 				this.BluePaintPino.add(nCasa);
 			}
@@ -364,6 +567,7 @@ public class DrawingBoard extends JPanel implements Observer{
 					if(i%2 == 0){
 						if(BluePaintPino.get(i) == nPino){//Busca se o elemento já existe na lista
 							BluePaintPino.set(i+1, nCasa);//Se existir muda só a casa dele
+							//System.out.print("Blue ----- "+"Numero: " + nPino + "Casa: " + nCasa + "\n");
 						}
 					}
 				}
@@ -372,7 +576,7 @@ public class DrawingBoard extends JPanel implements Observer{
 
 		else if(Cor == Color.yellow){
 			if(YellowPaintPino.size() < 8 ){
-				//System.out.print("Numero: " + nPino + "Casa: " + nCasa + "\n");
+				//System.out.print("Yellow ----- "+"Numero: " + nPino + "Casa: " + nCasa + "\n");
 				this.YellowPaintPino.add(nPino);
 				this.YellowPaintPino.add(nCasa);
 			}
@@ -381,6 +585,7 @@ public class DrawingBoard extends JPanel implements Observer{
 					if(i%2 == 0){
 						if(YellowPaintPino.get(i) == nPino){//Busca se o elemento já existe na lista
 							YellowPaintPino.set(i+1, nCasa);//Se existir muda só a casa dele
+							//System.out.print("Yellow ----- "+"Numero: " + nPino + "Casa: " + nCasa + "\n");
 						}
 					}
 				}
@@ -389,7 +594,7 @@ public class DrawingBoard extends JPanel implements Observer{
 
 		else if(Cor == Color.green){
 			if(GreenPaintPino.size() < 8 ){
-				//System.out.print("Numero: " + nPino + "Casa: " + nCasa + "\n");
+				//System.out.print("Green ----- "+"Numero: " + nPino + "Casa: " + nCasa + "\n");
 				this.GreenPaintPino.add(nPino);
 				this.GreenPaintPino.add(nCasa);
 			}
@@ -398,6 +603,7 @@ public class DrawingBoard extends JPanel implements Observer{
 					if(i%2 == 0){
 						if(GreenPaintPino.get(i) == nPino){//Busca se o elemento já existe na lista
 							GreenPaintPino.set(i+1, nCasa);//Se existir muda só a casa dele
+							//System.out.print("Green ----- "+"Numero: " + nPino + "Casa: " + nCasa + "\n");
 						}
 					}
 				}
@@ -410,12 +616,8 @@ public class DrawingBoard extends JPanel implements Observer{
 
 		}
 	}
-	
-	public void addTabuleiro(Subject PinoEstruturado){
 
-		//Guardar a referencia para o DrawingBoard objeto
-		//Para assim a gente conseguir chamar em métodos
-		this.PinoEstruturado = PinoEstruturado;
+	public void addTabuleiro(Subject PinoEstruturado){
 
 		//Incrementando o contado statico
 		this.ObserverID = ++ObserverIDTracker;

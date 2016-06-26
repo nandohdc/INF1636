@@ -9,15 +9,16 @@ import javax.swing.JComponent;
 
 @SuppressWarnings("serial")
 public class Yard extends JComponent{
-	
-private static Yard YARDfirstInstance = null;
-	
+
+	private static Yard YARDfirstInstance = null;
+
+	//Singleton da Class -- Yard
 	public static Yard getInstance(){
 		if(YARDfirstInstance == null){
-			
+
 			YARDfirstInstance = new Yard();
 		}
-		
+
 		return YARDfirstInstance;
 	}
 

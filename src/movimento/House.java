@@ -1,11 +1,11 @@
 package movimento;
 
 public class House {
-	
+
 	private int line; // Coordenada linha da Casa
 	private int column; // Coordenada coluna da Casa
-	
-	
+
+
 	public House(){// Inicializa as variaveis para evitar atribuicoes com lixo.
 		this.line = 0;
 		this.column = 0;

@@ -33,12 +33,12 @@ public class Board extends JFrame{
 
 		//Criando Objeto do tipo DrawingBoard--  Singleton
 		new DrawingBoard();
-		
+
 		//Criando Objeto do tipo FacadeMovimento --  Singleton
 		new FacadeMovimento();
-		
+
 		FacadeMovimento.FacadeRegistraObserver(pPino);
-		
+
 		//Criando objeto do tipo ConjuntoDePinos -- Singleton
 		new ConjuntoDePinos();
 
@@ -47,10 +47,10 @@ public class Board extends JFrame{
 
 		//Criando objeto do tipo Path -- Singleton
 		new Path();
-		
+
 		//Criando Objeto do Tipo Score -- Singleton
 		new Score();
-		
+
 		mHandler = new MouseHandler();
 		aHandler = new ActionHandler();
 		round = 0;
@@ -83,20 +83,6 @@ public class Board extends JFrame{
 
 		//Criando o botao (Save)
 		Save = new JButton("Save");
-			
-		//Criando o Label do score
-	/*	ScoreRed = new JLabel();
-		ScoreRed.setText("<html><font color='red' size =+1>Red</font>:</html>" + Integer.toString(Score.getInstancce().getScoreRed()));
-		System.out.println("Red: " + Score.getInstancce().getScoreRed());
-		System.out.println("Blue: " + Score.getInstancce().getScoreBlue());
-		System.out.println("Yellow: " + Score.getInstancce().getScoreYellow());
-		System.out.println("Green: " + Score.getInstancce().getScoreGreen());
-		ScoreBlue = new JLabel();
-		ScoreBlue.setText("<html><font color='blue' size =+1>Blue</font>:</html> " + Integer.toString(Score.getInstancce().getScoreBlue()));
-		ScoreYellow = new JLabel();
-		ScoreYellow.setText("<html><font color='yellow' size =+1>Yellow</font>:</html>" + Integer.toString(Score.getInstancce().getScoreYellow()));
-		ScoreGreen = new JLabel();
-		ScoreGreen.setText("<html><font color='green' size =+1>Green</font>:</html>" + Integer.toString(Score.getInstancce().getScoreGreen()));*/
 
 		//Adicionando ActionListner ao botao RollDice
 		RollDice.addActionListener(aHandler);
@@ -133,14 +119,12 @@ public class Board extends JFrame{
 		round = ListOfAllLoadInfo.get(0);
 		ListOfAllLoadInfo.remove(0);
 
-		System.out.println("List: " + ListOfAllLoadInfo.get(0));
-
 		//Instanciando o Objeto que vai ser Observado
 		PinoEstruturado pPino = new PinoEstruturado();
 
 		//Criando Objeto do tipo DrawingBoard--  Singleton
 		new DrawingBoard();
-		
+
 		new FacadeMovimento();
 		//Criando Objeto do tipo FacadeMovimento --  Singleton
 		FacadeMovimento.FacadeRegistraObserver(pPino);
@@ -158,7 +142,7 @@ public class Board extends JFrame{
 
 		//Criando Objeto do Tipo Score -- Singleton
 		new Score();
-		
+
 		mHandler = new MouseHandler();
 		aHandler = new ActionHandler();
 
@@ -191,25 +175,19 @@ public class Board extends JFrame{
 
 		//Criando o botao (Save)
 		Save = new JButton("Save");
-		
-		//Criando os Labels do score
-		//ScoreRed = new JLabel("<html><font color='red' size =+1>Red</font>:</html>" + 1);
-		//ScoreBlue = new JLabel("<html><font color='blue' size =+1>Blue</font>:</html> " + 1);
-		//ScoreYellow = new JLabel("<html><font color='yellow' size =+1>Yellow</font>:</html>" + 1);
-		//ScoreGreen = new JLabel("<html><font color='green' size =+1>Green</font>:</html>" + 1);
-		
+
 		//Adicionando ActionListner ao botao RollDice
 		RollDice.addActionListener(aHandler);
 
 		//Adicionando ActionListner ao botao Save
 		Save.addActionListener(aHandler);
-		
+
 		//Adicionando o botao RollDice ao box
 		thebox.add(RollDice);
 
 		//Adicionando o button do Save ao box
 		thebox.add(Save);
-		
+
 		//Adicionando o box do dado para o panel
 		this.add(thebox, BorderLayout.EAST);
 

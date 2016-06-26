@@ -8,11 +8,12 @@ public class ConjuntoDePinos {
 	PinoEstruturado[] RedPino = new PinoEstruturado[4];
 	PinoEstruturado[] BluePino = new PinoEstruturado[4];
 	PinoEstruturado[] YellowPino = new PinoEstruturado[4];
-	
+
 	int verde6;
 	int vermelho6;
 	int azul6;
 	int amarelo6;
+
 
 	private static ConjuntoDePinos cpfirstInstance = null;
 
@@ -92,13 +93,13 @@ public class ConjuntoDePinos {
 	public PinoEstruturado getYellow(int numero){
 		return this.YellowPino[numero-1];
 	}
-	
+
 
 	//Esse metodo da Classe ConjuntoDePinos é usado
 	//no caso de um jogo salvo e criando os pinos
 	//nos lugares de acordo com o arquivo salvo
 	//Receber uma String com toda as informacoes
-	
+
 	public void LoadGameConjuntoDePinos(ArrayList<Integer> ListOfAllLoadInfo){
 
 		this.RedPino[0].setNumero(ListOfAllLoadInfo.get(0));

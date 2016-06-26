@@ -8,20 +8,21 @@ import javax.swing.JComponent;
 public class Pocket extends JComponent{
 
 	private static Pocket POCKETfirstInstance = null;
-	
+
+	//Singleton da Class -- Pocket
 	public static Pocket getInstance(){
 		if(POCKETfirstInstance == null){
-			
+
 			POCKETfirstInstance = new Pocket();
 		}
-		
+
 		return POCKETfirstInstance;
 	}
-	
+
 	public Pocket(){
-		
+
 	}
-	
+
 	public void graphPocket(Graphics2D graphSettings){
 		final int []xgreen = {240, 240, 300};
 		final int []ygreen = {360, 240, 300};
@@ -31,7 +32,7 @@ public class Pocket extends JComponent{
 		final int []yred = {240, 240, 300};
 		final int []xblue = {360, 360, 300};
 		final int []yblue = {360, 240, 300};
-		
+
 		graphSettings.setPaint(Color.green);
 		graphSettings.fillPolygon(xgreen, ygreen, 3);
 		graphSettings.setPaint(Color.yellow);
@@ -47,7 +48,7 @@ public class Pocket extends JComponent{
 		graphSettings.drawPolygon(xred, yred, 3);	
 		graphSettings.drawPolygon(xblue, yblue, 3);
 
-		
+
 	}
 
 }

@@ -15,51 +15,93 @@ public class PlacarFinal extends JFrame{
 
 	JButton closePlacar;
 	ActionHandler aHandler;
-	JLabel ScoreRed;
-	JLabel ScoreBlue;
-	JLabel ScoreYellow;
-	JLabel ScoreGreen;
+	JLabel PlacarRed;
+	JLabel PlacarBlue;
+	JLabel PlacarYellow;
+	JLabel PlacarGreen;
+
+	private static PlacarFinal PlacarFinalfirstInstance = null;
+
+	//Singleton da Class -- ConjuntoDePinos
+	public static PlacarFinal getInstancce(){
+		if(PlacarFinalfirstInstance == null){
+
+			PlacarFinalfirstInstance = new PlacarFinal();
+		}
+
+		return PlacarFinalfirstInstance;
+	}
 
 	public PlacarFinal(){
 		closePlacar = new JButton("OK");
-		
+		PlacarRed = new JLabel();
+		PlacarBlue = new JLabel();
+		PlacarYellow = new JLabel();
+		PlacarGreen = new JLabel();
+
 		//Criando Box para dividir o Frame em partes:Score e Botao.
 		Box thebox = Box.createVerticalBox();
 		Box theboxH = Box.createHorizontalBox();
-		
+
 		//Definindo configuracoes defaults para o JFrame
 		this.setSize(200,150);
-		this.setTitle("LUDO & FRIENDS - SCORE - PLACAR FINAL");
+		this.setTitle("PLACAR FINAL");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		aHandler = new ActionHandler();
 
 		//Adicionando ActionListner ao botao RollDice
 		closePlacar.addActionListener(aHandler);
-		
+
 		//Criando os Labels do score
-		ScoreRed = new JLabel();
-		ScoreRed.setText("Red: " + Integer.toString(Score.getInstancce().getScoreRed()));
-		ScoreBlue = new JLabel();
-		ScoreBlue.setText("Blue: " + Integer.toString(Score.getInstancce().getScoreBlue()));
-		ScoreYellow = new JLabel();
-		ScoreYellow.setText("Yellow: " + Integer.toString(Score.getInstancce().getScoreYellow()));
-		ScoreGreen = new JLabel();
-		ScoreGreen.setText("Green: " + Integer.toString(Score.getInstancce().getScoreGreen()));
+
+		if(Score.getInstancce().ScoreRed == 0){
+			PlacarRed.setText("VENCEDOR Red: " + Integer.toString(Score.getInstancce().getScoreRed()));
+
+		}
+
+		else{
+			PlacarRed.setText("Red: " + Integer.toString(Score.getInstancce().getScoreRed()));
+
+		}
+
+		if(Score.getInstancce().ScoreBlue == 0){
+			PlacarBlue.setText("VENCEDOR Blue: " + Integer.toString(Score.getInstancce().getScoreBlue()));
+		}
+
+		else{
+			PlacarBlue.setText("Blue: " + Integer.toString(Score.getInstancce().getScoreBlue()));
+		}
+
+		if(Score.getInstancce().ScoreYellow == 0){
+			PlacarYellow.setText("VENCEDOR Yellow: " + Integer.toString(Score.getInstancce().getScoreYellow()));
+		}
+
+		else{
+			PlacarYellow.setText("Yellow: " + Integer.toString(Score.getInstancce().getScoreYellow()));
+		}
+
+		if(Score.getInstancce().ScoreGreen == 0){
+			PlacarGreen.setText("VENCEDOR Green: " + Integer.toString(Score.getInstancce().getScoreGreen()));
+		}
+
+		else{
+			PlacarGreen.setText("Green: " + Integer.toString(Score.getInstancce().getScoreGreen()));
+		}
 		
 		//Adicionando os Labels do score ao box
-		thebox.add(ScoreRed);
-		thebox.add(ScoreBlue);
-		thebox.add(ScoreYellow);
-		thebox.add(ScoreGreen);
-		
+		thebox.add(PlacarRed);
+		thebox.add(PlacarBlue);
+		thebox.add(PlacarYellow);
+		thebox.add(PlacarGreen);
+
 		//Adicionando o box do Save ao box
 		theboxH.add(closePlacar);
-		
+
 		//Adicionando o box do dado para o panel
 		this.add(thebox, BorderLayout.NORTH);
 		this.add(theboxH, BorderLayout.CENTER);
-		
+
 		//Centralizando a Janela com Tela do PC
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension dim = tk.getScreenSize();
@@ -79,7 +121,7 @@ public class PlacarFinal extends JFrame{
 
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource() == closePlacar){
-				
+
 				System.exit(0);
 
 			}
