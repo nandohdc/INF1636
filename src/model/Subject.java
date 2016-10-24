@@ -1,7 +1,6 @@
-package movimento;
+package model;
 
-//This interface handles adding, deleting and updating all the observers
-import movimento.Observer;
+import model.Observer;
 
 public interface Subject {
 

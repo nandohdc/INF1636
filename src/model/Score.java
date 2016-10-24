@@ -1,10 +1,10 @@
-package movimento;
+package model;
 
 public class Score {
-	int ScoreRed;
-	int ScoreBlue;
-	int ScoreYellow;
-	int ScoreGreen;
+	public int ScoreRed;
+	public int ScoreBlue;
+	public int ScoreYellow;
+	public int ScoreGreen;
 
 	private static Score SfirstInstance = null;
 

@@ -1,4 +1,4 @@
-package movimento;
+package model;
 
 public class House {
 

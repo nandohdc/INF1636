@@ -20,7 +20,7 @@ total de 16 pinos. Também é composto de um dado que tem suas faces geradas ale
 
 1)Pacotes:
 
-1.1)grafica
+1.1)view
 -Board.java
 -Dice.java
 -DrawingBoard.java
@@ -30,11 +30,13 @@ total de 16 pinos. Também é composto de um dado que tem suas faces geradas ale
 1.2)menu
 -MainScreen.java
 
-1.3)movimento
+1.3)controller
+-FacadeMovimento.java
+
+1.3)model
 ConjuntoDePinos.java
-FacadeMovimento.java
 House.java
-MoveBitch.java
+MoveAndRules.java
 Path.java
 PinoEstruturado.java
 PlacarFinal.java

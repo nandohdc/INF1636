@@ -1,4 +1,4 @@
-package movimento;
+package model;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class PinoEstruturado implements Subject {	
 
 	// Creates an ArrayList to hold all observers
-	private static ArrayList<movimento.Observer> observers = new ArrayList<movimento.Observer>();
+	private static ArrayList<model.Observer> observers = new ArrayList<model.Observer>();
 
 	//Criar as variaveis que a gente vai usar para fazer o update
 	int casa;
@@ -49,7 +49,7 @@ public class PinoEstruturado implements Subject {
 	}
 
 	@Override
-	public void register(movimento.Observer newObserver) {
+	public void register(model.Observer newObserver) {
 		// Adiciona um novo Observer a lista de Observers
 
 		System.out.println("Observador Registrado!");
@@ -60,7 +60,7 @@ public class PinoEstruturado implements Subject {
 	}
 
 	@Override
-	public void unregister(movimento.Observer deleteObserver) {
+	public void unregister(model.Observer deleteObserver) {
 		//Get the index of the observer that is going to be deleted.
 
 		int ObserverIndex = observers.indexOf(deleteObserver);

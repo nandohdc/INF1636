@@ -14,7 +14,8 @@ import java.util.ArrayList;
 
 import javax.imageio.*;
 import javax.swing.*;
-import grafica.Board;
+
+import view.Board;
 
 @SuppressWarnings("serial")
 public class MainScreen extends JFrame implements ActionListener{

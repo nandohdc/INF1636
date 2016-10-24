@@ -1,44 +1,46 @@
-package movimento;
+package model;
 
 import java.awt.Color;
-import grafica.Board;
-import grafica.Dice;
 
-public class MoveBitch {
+import view.Board;
+import view.Dice;
+import view.PlacarFinal;
+
+public class MovesAndRules {
 
 	PinoEstruturado mPino;
 	House[] mCaminho = new House[59];
 	int mDado;
 	int  PlacarFinal = 0;
-	
-	private static MoveBitch MoveBitchfirstInstance = null;
-	
-	//Singleton da Class -- MoveBitch
-	public static MoveBitch getInstancce(){
-		if(MoveBitchfirstInstance == null){
 
-			MoveBitchfirstInstance = new MoveBitch();
+	private static MovesAndRules MovesAndRulesfirstInstance = null;
+
+	//Singleton da Class -- MoveBitch
+	public static MovesAndRules getInstancce(){
+		if(MovesAndRulesfirstInstance == null){
+
+			MovesAndRulesfirstInstance = new MovesAndRules();
 		}
 
-		return MoveBitchfirstInstance;
+		return MovesAndRulesfirstInstance;
 	}
-	
-	
 
-	public MoveBitch(){
+
+
+	public MovesAndRules(){
 		this.mPino = null;
 		this.mCaminho = null;
 		this.mDado = 0;
 	}
-	
-	public void InicializaMoveBitch(int cX, int cY, int Dado){
+
+	public void InicializaMovesAndRules(int cX, int cY, int Dado){
 		this.mPino = CoordToPino(cX, cY);
 		if(this.mPino != null){
 			this.mCaminho = PinoToArrayHouse(this.mPino.getColor());
 		}
 		this.mDado = Dado;
 	}
-	
+
 
 	private House CheckCoordinates(Path Caminho, int CoordinateX ,int CoordinateY){
 		House aux1 = null;
@@ -1301,4 +1303,3 @@ public class MoveBitch {
 
 	}
 }
-

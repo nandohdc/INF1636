@@ -1,4 +1,4 @@
-package grafica;
+package view;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -9,11 +9,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.swing.*;
-import movimento.ConjuntoDePinos;
-import movimento.FacadeMovimento;
-import movimento.Path;
-import movimento.PinoEstruturado;
-import movimento.Score;
+
+import controller.FacadeMovimento;
+import model.ConjuntoDePinos;
+import model.Path;
+import model.PinoEstruturado;
+import model.Score;
 
 @SuppressWarnings("serial")
 public class Board extends JFrame{

@@ -1,10 +1,12 @@
-package grafica;
+package view;
 
 import java.awt.geom.*;
 import java.util.ArrayList;
 import java.awt.*;
 import javax.swing.*;
-import movimento.*;
+import model.Observer;
+import model.Path;
+import model.Subject;
 
 
 @SuppressWarnings("serial")

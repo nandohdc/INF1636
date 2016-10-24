@@ -1,4 +1,4 @@
-package movimento;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -9,6 +9,8 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import model.Score;
 
 @SuppressWarnings("serial")
 public class PlacarFinal extends JFrame{

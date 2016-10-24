@@ -1,7 +1,10 @@
-package movimento;
+package controller;
 
-import grafica.Dice;
-import grafica.DrawingBoard;
+import model.MovesAndRules;
+import model.Score;
+import model.Subject;
+import view.Dice;
+import view.DrawingBoard;
 
 public class FacadeMovimento{
 	private int CoordinateX;
@@ -49,10 +52,10 @@ public class FacadeMovimento{
 	public boolean setClickedCoordinates(int cX, int cY){
 		setCoordinateX(cX);
 		setCoordinateY(cY); 
-		new MoveBitch();
-		MoveBitch.getInstancce().InicializaMoveBitch(cX, cY, dice.getRandNum());
+		new MovesAndRules();
+		MovesAndRules.getInstancce().InicializaMovesAndRules(cX, cY, dice.getRandNum());
 
-		if(MoveBitch.getInstancce().JustDoIt() == true){
+		if(MovesAndRules.getInstancce().JustDoIt() == true){
 			//Update os valores de Score
 			Score.getInstancce().updateScore();
 			return true;
