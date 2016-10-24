@@ -12,7 +12,21 @@ We implemented a Ludo Game in Java, using some design patterns:
 
 [Português] - Programação Orientada a Objetos
 
+Programa: Ludo Friends Game							              
+Data: 26/06/2016
+Autores:  Fernando Homem (nandohdc@gmail.com)
+          Mateus Ribeiro (matcastro2004@yahoo.com.br)
+
+Descrição do projeto:
+
 Projeto para o curso de programação orientada a objetos da PUC - Rio.
+O Projeto da disciplina INF1636 (2016.1) trata de concluir a programação de
+um jogo chamado Ludo, incluindo a parte grafica e lógica.
+
+O jogo funciona em Windows/MacOS e será jogado através de uma interface grafica elaborada pelo grupo.
+
+O jogo, Ludo Friends Game, é constituído de 4 pinos de 4 cores(vermelho, azul, amarelo, verde) no
+total de 16 pinos. Também é composto de um dado que tem suas faces geradas aleatoriamente.
 
 O Objetivo desse projeto era implementar o jogo Ludo em Java, utilizando alguns padrões de projeto de software:
 
@@ -20,24 +34,6 @@ O Objetivo desse projeto era implementar o jogo Ludo em Java, utilizando alguns 
 - Singleton;
 - Facade;
 - Observer.
-
-*********************************************************
-* Programa: Ludo Friends Game							              *
-*														                            *
-* Data: 26/06/2016										                  *
-* Autores:  Fernando Homem (nandohdc@gmail.com)			    *
-*			Mateus Ribeiro (matcastro2004@yahoo.com.br)	      *
-*														                            *
-*********************************************************
-Descrição do programa:
-
-O Trabalho da disciplina INF1636 (2016.1) trata de concluir a programação de
-um jogo chamado Ludo, incluindo a parte grafica e lógica.
-
-O jogo funciona em Windows/MacOS e será jogado através de uma interface grafica elaborada pelo grupo.
-
-O jogo, Ludo Friends Game, é constituído de 4 pinos de 4 cores(vermelho, azul, amarelo, verde) no
-total de 16 pinos. Também é composto de um dado que tem suas faces geradas aleatoriamente.
  
 ==> O Trabalho é composto de:
 
