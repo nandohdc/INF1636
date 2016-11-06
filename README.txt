@@ -1,5 +1,9 @@
 # INF1636 - 2016.1
 [English] - Object Oriented Programming
+Project: Ludo Friends Game							              
+Date: 26/06/2016
+Authors:  Fernando Homem (nandohdc@gmail.com)
+          Mateus Ribeiro (matcastro2004@yahoo.com.br)
 
 We implemented a Ludo Game in Java, using some design patterns:
 
