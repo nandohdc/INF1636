@@ -18,7 +18,8 @@ Go to http://www.oracle.com/technetwork/pt/java/javase/downloads/index.html
 and download the latest version of Java Platform (JDK) and install it.
 
 After this,
-Go to http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2 and download latest version of Eclipse Java and install it.
+Go to http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2 
+and download latest version of Eclipse Java and install it.
 ```
 
 ### Installing
