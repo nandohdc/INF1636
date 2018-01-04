@@ -1,6 +1,11 @@
-# Project Title
+ # INF1636 - 2016.1 (Ludo Board Game)
 
-One Paragraph of project description goes here
+The object-oriented programming (INF1636) discipline project of the Pontifical Catholic University of Rio de Janeiro, in the first half of 2016. Its objective is to implement a board game, called ludo, in Java. The project consists of a logical part and a graphical interface.
+
+We implemented a Ludo board game in Java, using some design patterns:
+ -- Singleton;
+ -- Facade;
+ -- Observer.
 
 ## Getting Started
 
@@ -8,10 +13,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
 ```
-Give examples
+Go to http://www.oracle.com/technetwork/pt/java/javase/downloads/index.html
+and download the latest version of Java Platform (JDK) and install it.
+
+After this,
+Go to http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2 and download latest version of Eclipse Java and install it.
 ```
 
 ### Installing
@@ -58,9 +65,8 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Java Platform (JDK) 8u111 ](http://www.oracle.com/technetwork/pt/java/javase/downloads/index.html) - Java JDK
+* [Eclipse](http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2) - Eclipse
 
 ## Contributing
 
@@ -72,16 +78,9 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Fernando Homem da Costa** - *nandohdc@gmail.com* - [nanohdc](https://github.com/nandohdc)
+* **Mateus Ribeiro** - *matcastro2004@yahoo.com.br* - [matcastro](https://github.com/matcastro)
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
