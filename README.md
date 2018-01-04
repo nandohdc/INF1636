@@ -79,7 +79,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Fernando Homem da Costa** - *nandohdc@gmail.com* - [nanohdc](https://github.com/nandohdc)
+* **Fernando Homem da Costa** - *nandohdc@gmail.com* - [nandohdc](https://github.com/nandohdc)
 * **Mateus Ribeiro** - *matcastro2004@yahoo.com.br* - [matcastro](https://github.com/matcastro)
 
 ## License
