@@ -14,11 +14,11 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 ```
-Go to http://www.oracle.com/technetwork/pt/java/javase/downloads/index.html
+Go to [Java Platform (JDK)](http://www.oracle.com/technetwork/pt/java/javase/downloads/index.html) - Java JDK
 and download the latest version of Java Platform (JDK) and install it.
 
 After this,
-Go to http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2 
+Go to [Eclipse](http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/oxygen2) - Eclipse IDE Java Developers
 and download latest version of Eclipse Java and install it.
 ```
 
