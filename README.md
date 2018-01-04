@@ -3,9 +3,9 @@
 The object-oriented programming (INF1636) discipline project of the Pontifical Catholic University of Rio de Janeiro, in the first half of 2016. Its objective is to implement a board game, called ludo, in Java. The project consists of a logical part and a graphical interface.
 
 We implemented a Ludo board game in Java, using some design patterns:
- -- Singleton;
- -- Facade;
- -- Observer.
+Singleton;
+Facade;
+Observer.
 
 ## Getting Started
 
